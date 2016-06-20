@@ -12,7 +12,7 @@
     "get-node": "mkdir n_working && export N_PREFIX=$PWD/n_working && ./node_modules/n/bin/n latest",
     "start": "./node_modules/forever/bin/forever start -c \"./node_modules/n/bin/n use latest\" server.js", 
     "stop": "./node_modules/forever/bin/forever stopall",
-    "restart": "npm run_script stop && npm run_script start",
+    "restart": "npm run_script stop && npm run_script start"
   },
   "repository": {
     "type": "git",
