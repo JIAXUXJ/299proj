@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 
 app.get('/', function(req, res) {
-	res.send("Hello world!");
+	res.send("Hello world! I'm running node.js version " + process.version + "!");
 });
 
 app.listen(30052, function() {
