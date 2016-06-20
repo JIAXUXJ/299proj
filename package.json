@@ -1,0 +1,18 @@
+{
+  "name": "seng-299-go",
+  "version": "0.1.0",
+  "description": "\"Go\" web app project for SENG 299",
+  "main": "server.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/JIAXUXJ/299proj.git"
+  },
+  "author": "Charlie Friend, Tyler Hardanek, Alex Laing, Alex Rebalkin, Jia Xu",
+  "license": "ISC"
+}
