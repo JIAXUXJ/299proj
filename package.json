@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "init-env": "npm install && npm run-script get-node",
+    "init-env-server": "npm install && npm run-script get-node",
     "get-node": "mkdir n_working && export N_PREFIX=$PWD/n_working && ./node_modules/n/bin/n latest",
     "start": "export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever start -c \"./node_modules/n/bin/n use latest\" server.js", 
     "stop": "export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever stopall",
@@ -21,8 +21,10 @@
   "author": "Charlie Friend, Tyler Hardanek, Alex Laing, Alex Rebalkin, Jia Xu",
   "license": "ISC",
   "dependencies": {
-    "n": "~2.1.1",
-    "forever": "~0.15.2",
     "express": "~4.14.0"
+  },
+  "optionalDependencies": {
+	"n": "~2.1.1",
+    "forever": "~0.15.2"
   }
 }
