@@ -18,7 +18,13 @@
     "type": "git",
     "url": "https://www.github.com/JIAXUXJ/299proj.git"
   },
-  "author": "Charlie Friend, Tyler Hardanek, Alex Laing, Alex Rebalkin, Jia Xu",
+  "contributors": [
+	"Charlie Friend <cdfriend@uvic.ca>", 
+	"Tyler Hardanek <tylerhar@uvic.ca>", 
+	"Alex Laing <lainga@uvic.ca>", 
+	"Alex Rebalkin <alexreba@uvic.ca>", 
+	"Jia Xu <xujia@uvic.ca>"
+  ],
   "license": "ISC",
   "dependencies": {
     "express": "~4.14.0"
