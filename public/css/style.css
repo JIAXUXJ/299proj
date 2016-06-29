@@ -1,0 +1,17 @@
+body{background: url("../img/20160606211514.png");}
+.left{float: left}
+.right{float: right}
+.top-nav{background-color: rgba(229, 236, 234, 0.3); height: 90px;}
+.top-nav{padding-left: 100px;}
+.top-nav ul li{padding-left:20px; line-height: 90px; padding-right: 20px;  font-size: 35px; display: inline-block; border-right: 2px solid #8da5a5;}
+.top-nav ul li a{text-decoration: none;color: #ffffff;}
+.nav-on{background-color: #252424}
+.logo{background: url("../img/logo.png"); width:260px; height: 90px;}
+.sign{height: 100%; width: 70%; margin: 0 auto; color: aliceblue; font-size: 30px; padding-top: 200px;}
+.sign form input{background: none;color: white; font-size: 20px;}
+.sign button{outline: none; border: 0; -webkit-appearance: none;  background: transparent;width: 340px; height: 90px; }
+.sign button:hover{cursor: hand;}
+#sign-in button{background-image: url("../img/signin.png");}
+#sign-up button{background-image: url("../img/signup.png"); }
+.team{height: 100%; width: 60%; margin: 0 auto; color: aliceblue; font-size: 30px; padding-top: 50px;}
+.team img{width: 200px; height: 200px; border: 0;}
