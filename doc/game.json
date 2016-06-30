@@ -5,6 +5,7 @@
   "BoardSize": "",
   "moves": [],
   "PWhiteId": "",
-  "PBlackId": ""
+  "PBlackId": "",
+  "State": "",
 }
 
