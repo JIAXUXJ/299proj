@@ -7,7 +7,7 @@
     "doc": "doc"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node node_modules/mocha/bin/mocha",
     "init-env-server": "npm install && npm run-script get-node",
     "get-node": "mkdir n_working && export N_PREFIX=$PWD/n_working && ./node_modules/n/bin/n latest",
     "start": "export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever start -c \"./node_modules/n/bin/n use latest\" server.js",
