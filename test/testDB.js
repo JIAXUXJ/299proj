@@ -10,11 +10,11 @@ describe('db', function() {
     //start test mongoDB server
     var server = new mongoDb('test', new mongoServer('localhost', 21707));
     
-    var dbInst;
+    var dbInst = null;
     
     beforeEach(function() {
-         dbInst = new db(null, null, 'test', 'localhost', 21707);
-         dbInst.init();
+        dbInst = new db(null, null, 'test', 'localhost', 21707);
+        dbInst.init();
     });
     
     afterEach(function() {
@@ -25,7 +25,7 @@ describe('db', function() {
 	describe('#init()', function() {
         
         it('should be CONNECTED after initialization', function() {
-            assert.equal(db.state, 'CONNECTED');
+            assert.equal(dbInst.state, 'CONNECTED');
         });
         
     });
