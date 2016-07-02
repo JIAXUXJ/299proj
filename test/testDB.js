@@ -6,6 +6,10 @@ var db          = require('../lib/db/MongoDB.js');
 
 describe('db', function() {
 
-	
+	describe('#init()', function() {
+        
+        
+        
+    });
 	
 });
