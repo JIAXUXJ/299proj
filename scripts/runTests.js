@@ -15,6 +15,7 @@ mongoProc.stderr.on('data', function(data) {
     console.log(data.toString('utf8'));
     console.log("Mongo error encountered. Exiting...");
     mongoProc.kill('SIGINT');
+    process.exit(1);
 });
 
 mongoProc.on('exit', function() {
