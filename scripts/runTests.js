@@ -23,19 +23,25 @@ mongoProc.on('exit', function() {
     console.log('Mongo exited.');
 });
 
-// get test files
-var mocha = new Mocha();
-
-fs.readdirSync(TEST_DIR).filter(function(file) {
-    return file.substr(-3) == ".js";
-}).forEach(function(file) {
-    mocha.addFile(path.join(TEST_DIR, file));
-});
-
-// run tests
-mocha.run().on('end', function() {
-      
-    //kill mongo
-    mongoProc.kill('SIGINT');
+// wait to ensure mongo is active
+setTimeout(function() {
     
-});
+    // get test files
+    var mocha = new Mocha();
+
+    fs.readdirSync(TEST_DIR).filter(function(file) {
+        return file.substr(-3) == ".js";
+    }).forEach(function(file) {
+        mocha.addFile(path.join(TEST_DIR, file));
+    });
+
+    // run tests
+    mocha.run().on('end', function() {
+          
+        //kill mongo
+        mongoProc.kill('SIGINT');
+        
+    });
+    
+}, 3000);
+
