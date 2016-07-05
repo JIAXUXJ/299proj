@@ -43,5 +43,5 @@ setTimeout(function() {
         
     });
     
-}, 3000);
+}, 2000);
 
