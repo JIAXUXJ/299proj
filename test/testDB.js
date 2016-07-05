@@ -8,17 +8,17 @@ var db          = require('../lib/db/MongoDB.js');
 describe('db', function() {
     
     //start test mongoDB server
-    var server = new mongoDb('test', new mongoServer('localhost', 21707));
+    var server = new mongoDb('test', new mongoServer('localhost', 27017));
     
     var dbInst = null;
     
-    beforeEach(function() {
-        dbInst = new db(null, null, 'test', 'localhost', 21707);
-        dbInst.init();
+    before(function(done) {
+        dbInst = new db(null, null, 'test', 'localhost', 27017);
+        dbInst.init(done);
     });
     
-    afterEach(function() {
-        dbInst.close();
+    after(function(done) {
+        dbInst.close(done);
         dbInst = null;
     });
 
