@@ -9,14 +9,12 @@ var path  = require('path');
 
 // start test db
 console.log('Starting mongo...');
-const mongoProc = spawn('mongod', ['--dbpath', './testData']);
-
-mongoProc.stdout.on('data', function(data) {
-    console.log(data.toString('utf8'));
-});
+const mongoProc = spawn('mongod', ['--dbpath', './testData', '--logpath', './testData/mongoLog.log']);
 
 mongoProc.stderr.on('data', function(data) {
     console.log(data.toString('utf8'));
+    console.log("Mongo error encountered. Exiting...");
+    mongoProc.kill('SIGINT');
 });
 
 mongoProc.on('exit', function() {
