@@ -7,10 +7,11 @@ var db          = require('../lib/db/MongoDB.js');
 
 describe('db', function() {
     
-    //start test mongoDB server
-    var server = new mongoDb('test', new mongoServer('localhost', 27017));
-    
+    // db interface instance
     var dbInst = null;
+    
+    // separate mongo connection to verify data
+    var dbCon = null;
     
     before(function(done) {
         dbInst = new db(null, null, 'test', 'localhost', 27017);
@@ -26,6 +27,33 @@ describe('db', function() {
         
         it('should be CONNECTED after initialization', function() {
             assert.equal(dbInst.state, 'CONNECTED');
+        });
+        
+    });
+    
+    describe('#newGame()', function() {
+        
+        it('should create a single game entry', function() {
+            
+            // SETUP
+            var gameData = {          
+              "gameID": "",
+              "TimeStart": new Date(),
+              "TimeEnd": new Date(),
+              "BoardSize": 9,
+              "moves": [],
+              "PWhiteId": 0,
+              "PBlackId": 1,
+              "State": 'ACTIVE',
+            };
+            
+            // EXEC
+            dbInst.newGame(gameData, function(id) {
+                
+                //VERIFY
+                
+            });
+
         });
         
     });
