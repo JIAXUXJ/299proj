@@ -2,3 +2,4 @@ node_modules/*
 n_working/*
 npm-debug.log
 testData/*
+.idea/*
