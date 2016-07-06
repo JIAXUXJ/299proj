@@ -58,10 +58,14 @@ describe('db', function() {
             };
             
             // EXEC
-            dbInst.newGame(gameData, function(id) {
+            dbInst.newGame(gameData, function() {
                 
                 //VERIFY
-                
+                dbCon.collection("games").count({}, function(err, res) {
+                    if (err) throw err;
+                    assert.equal(res, 1);
+                });
+
             });
 
         });
