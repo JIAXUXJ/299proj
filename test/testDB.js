@@ -1,8 +1,7 @@
 "use strict";
 
 var assert      = require('assert');
-var mongoServer = require('mongodb').Server;
-var mongoDb     = require('mongodb').Db;
+var MongoClient = require('mongodb').MongoClient;
 var db          = require('../lib/db/MongoDB.js');
 
 describe('db', function() {
@@ -15,12 +14,23 @@ describe('db', function() {
     
     before(function(done) {
         dbInst = new db(null, null, 'test', 'localhost', 27017);
-        dbInst.init(done);
+
+        MongoClient.connect("mongodb://localhost:27017/test", function(err, db) {
+            if (err) {
+                done(err);
+            }
+            else {
+                dbCon = db;
+                dbInst.init(done);
+            }
+        });
+
     });
     
     after(function(done) {
-        dbInst.close(done);
-        dbInst = null;
+        dbInst.close();
+        dbCon.close();
+        done();
     });
 
 	describe('#init()', function() {
