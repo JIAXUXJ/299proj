@@ -28,9 +28,10 @@ describe('db', function() {
     });
     
     after(function(done) {
-        dbInst.close();
-        dbCon.close();
-        done();
+        dbInst.close(function(err) {
+            if (err) done(err);
+            else dbCon.close(done);
+        });
     });
 
 	describe('#init()', function() {
@@ -43,7 +44,7 @@ describe('db', function() {
     
     describe('#newGame()', function() {
         
-        it('should create a single game entry', function() {
+        it('should create a single game entry', function(done) {
             
             // SETUP
             var gameData = {          
@@ -64,6 +65,7 @@ describe('db', function() {
                 dbCon.collection("games").count({}, function(err, res) {
                     if (err) throw err;
                     assert.equal(res, 1);
+                    done();
                 });
 
             });
