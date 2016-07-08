@@ -230,7 +230,7 @@ describe('db', function() {
                 dbInst.updatePlayerById(id, updateData, function(success) {
 
                     //VERIFY
-                    dbCon.collection("games").find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
+                    dbCon.collection("users").find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
                         assert.equal(doc.NumWins, 15);
                         assert.equal(doc.NumLosses, 16);
                         done();
