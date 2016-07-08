@@ -109,6 +109,51 @@ describe('db', function() {
         
     });
 
+    describe('#updateGameById()', function() {
+
+        it('should update specified fields in a document', function(done) {
+
+            //SETUP
+            var gameData = {
+                "gameID": "",
+                "TimeStart": new Date(),
+                "TimeEnd": new Date(),
+                "BoardSize": 9,
+                "moves": [],
+                "PWhiteId": 0,
+                "PBlackId": 1,
+                "State": 'ACTIVE',
+            };
+
+            var updateData = {
+                "PWhiteId": 5,
+                "PBlackId": 6
+            };
+
+            dbInst.newGame(gameData, function(id) {
+
+                //EXEC
+                dbInst.updateGameById(id, updateData, function(success) {
+
+                    //VERIFY
+                    dbCon.collection("games").find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
+                        assert.equal(doc.PWhiteId, 5);
+                        assert.equal(doc.PBlackId, 6);
+                        done();
+                    });
+
+                });
+
+            });
+
+        });
+
+        //TODO: should throw an error if invalid field is updated
+
+        //TODO: should throw an error if invalid game id is specified
+
+    });
+
     describe('#newPlayer()', function() {
 
         it('should create a single player entry', function(done) {
@@ -160,7 +205,6 @@ describe('db', function() {
             });
         });
     });
-
 
     after(function(done) {
         dbInst.close(function(err) {
