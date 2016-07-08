@@ -2,6 +2,7 @@
 
 var assert      = require('assert');
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId    = require('mongodb').ObjectId;
 var db          = require('../lib/db/MongoDB.js');
 
 describe('db', function() {
@@ -26,12 +27,19 @@ describe('db', function() {
         });
 
     });
-    
-    after(function(done) {
-        dbInst.close(function(err) {
+
+    // start each test with a clean collection
+    beforeEach(function(done) {
+
+        dbCon.collection("games").remove({}, function(err) {
             if (err) done(err);
-            else dbCon.close(done);
+            dbCon.collection("players").remove({}, function(err) {
+                if (err) done(err);
+                else done();
+            });
         });
+
+
     });
 
 	describe('#init()', function() {
@@ -71,7 +79,41 @@ describe('db', function() {
             });
 
         });
+
+        it('should return a valid game id', function(done) {
+
+            var gameData = {
+                "gameID": "",
+                "TimeStart": new Date(),
+                "TimeEnd": new Date(),
+                "BoardSize": 9,
+                "moves": [],
+                "PWhiteId": 0,
+                "PBlackId": 1,
+                "State": 'ACTIVE',
+            };
+
+            // EXEC
+            dbInst.newGame(gameData, function(id) {
+
+                //VERIFY
+                dbCon.collection("games").count({_id : new ObjectId(id)}, function(err, res) {
+                    if (err) throw err;
+                    assert.equal(res, 1);
+                    done();
+                });
+
+            });
+
+        });
         
+    });
+
+    after(function(done) {
+        dbInst.close(function(err) {
+            if (err) done(err);
+            else dbCon.close(done);
+        });
     });
 	
 });
