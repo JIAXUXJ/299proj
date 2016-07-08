@@ -109,6 +109,59 @@ describe('db', function() {
         
     });
 
+    describe('#newPlayer()', function() {
+
+        it('should create a single player entry', function(done) {
+
+            // SETUP
+            var playerData = {
+                "userName": "jim10",
+                "pwHash": "foobar",
+                "games": [],
+                "NumWins": 10,
+                "NumLosses": 10
+            };
+
+            // EXEC
+            dbInst.newPlayer(playerData, function () {
+
+                //VERIFY
+                dbCon.collection("users").count({}, function (err, res) {
+                    if (err) throw err;
+                    assert.equal(res, 1);
+                    done();
+                });
+
+            });
+
+        });
+
+        it('should return a valid player id', function(done) {
+
+            // SETUP
+            var playerData = {
+                "userName": "jim10",
+                "pwHash": "foobar",
+                "games": [],
+                "NumWins": 10,
+                "NumLosses": 10
+            };
+
+            // EXEC
+            dbInst.newPlayer(playerData, function (id) {
+
+                //VERIFY
+                dbCon.collection("users").count({_id: new ObjectId(id)}, function (err, res) {
+                    if (err) throw err;
+                    assert.equal(res, 1);
+                    done();
+                });
+
+            });
+        });
+    });
+
+
     after(function(done) {
         dbInst.close(function(err) {
             if (err) done(err);
