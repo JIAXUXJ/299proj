@@ -14,7 +14,7 @@ describe('db', function() {
     var dbCon = null;
     
     before(function(done) {
-        dbInst = new db(null, null, 'test', 'localhost', 27017);
+        dbInst = db;
 
         MongoClient.connect("mongodb://localhost:27017/test", function(err, db) {
             if (err) {
