@@ -206,6 +206,48 @@ describe('db', function() {
         });
     });
 
+    describe('#updatePlayerById()', function() {
+
+        it('should update specified fields in a document', function(done) {
+
+            //SETUP
+            var playerData = {
+                "userName": "jim10",
+                "pwHash": "foobar",
+                "games": [],
+                "NumWins": 10,
+                "NumLosses": 10
+            };
+
+            var updateData = {
+                "NumWins": 15,
+                "NumLosses": 16
+            };
+
+            dbInst.newPlayer(playerData, function(id) {
+
+                //EXEC
+                dbInst.updatePlayerById(id, updateData, function(success) {
+
+                    //VERIFY
+                    dbCon.collection("games").find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
+                        assert.equal(doc.NumWins, 15);
+                        assert.equal(doc.NumLosses, 16);
+                        done();
+                    });
+
+                });
+
+            });
+
+        });
+
+        //TODO: should throw an error if invalid field is updated
+
+        //TODO: should throw an error if invalid player id is specified
+
+    });
+
     after(function(done) {
         dbInst.close(function(err) {
             if (err) done(err);
