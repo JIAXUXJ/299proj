@@ -154,6 +154,47 @@ describe('db', function() {
 
     });
 
+    describe('#getGameById()', function() {
+
+        it('should return the a game object with the specified id', function(done) {
+
+            var gameData = {
+                "TimeStart": new Date(),
+                "TimeEnd": new Date(),
+                "BoardSize": 9,
+                "moves": [],
+                "PWhiteId": 0,
+                "PBlackId": 1,
+                "State": 'ACTIVE',
+            };
+
+            dbInst.newGame(gameData, function(id) {
+
+                if (id === null)
+                    throw new Error('Insert operation failed');
+
+                dbInst.getGameById(id, function(data) {
+
+                    //id match
+                    assert.equal(id, data._id.toHexString());
+
+                    //fields match
+                    for (var key in gameData) {
+                        assert.deepEqual(data[key], gameData[key]);
+                    }
+
+                    done();
+
+                });
+
+            });
+
+            //TODO: edge cases
+
+        });
+
+    });
+
     describe('#newPlayer()', function() {
 
         it('should create a single player entry', function(done) {
@@ -245,6 +286,45 @@ describe('db', function() {
         //TODO: should throw an error if invalid field is updated
 
         //TODO: should throw an error if invalid player id is specified
+
+    });
+
+    describe('#getPlayerById()', function() {
+
+        it('should return a player object with the specified id', function (done) {
+
+            var playerData = {
+                "userName": "jim10",
+                "pwHash": "foobar",
+                "games": [],
+                "NumWins": 10,
+                "NumLosses": 10
+            };
+
+            dbInst.newPlayer(playerData, function (id) {
+
+                if (id === null)
+                    throw new Error('Insert operation failed');
+
+                dbInst.getPlayerById(id, function (data) {
+
+                    //id match
+                    assert.equal(id, data._id.toHexString());
+
+                    //fields match
+                    for (var key in playerData) {
+                        assert.deepEqual(data[key], playerData[key]);
+                    }
+
+                    done();
+
+                });
+
+            });
+
+            //TODO: edge cases
+
+        });
 
     });
 
