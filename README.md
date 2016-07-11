@@ -16,3 +16,21 @@ A web application written in Node.js as part of the University of Victoria's sof
 2. Install dependencies with `npm install`
 3. Run the server locally using `node server.js`
 	* This will run the server on your **local** node installation, which may not be the same as the app's deployment environment.
+
+## Running Unit Tests
+
+This app uses the Mocha framework for unit testing. In order to run tests, you will need the following dependencies.
+
+1. The `mongod` executable on your $PATH (to test this, just type `mongod` into the command line).
+2. All application dependencies installed, `npm install`.
+
+To run tests, run `npm test` or follow the steps below:
+
+1. Make a directory for mongo test data and logs:
+    * `mkdir testData`
+2. Open a separate command line window and run `mongod`, directing its logs and data to the new directory
+    * `mongod --dbpath ./testData --logpath ./testData/mongoLog.log`
+3. Run mocha with mongo running in the background:
+    * `node ./node_modules/mocha/bin/mocha`
+
+For the sake of your own sanity, I highly recommend just running `npm test`.
