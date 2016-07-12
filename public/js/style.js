@@ -11,6 +11,15 @@ var Appearance = {
         },function () {
             $(this).removeClass('nav-on');
         });
+        $('#userSetting').hover(function () {
+            $('.remainder').show();
+        }, function () {
+            $('.remainder').hide();
+        });
+        $('.selection-nav').hover(function () {
+            
+        })
     }
+
 };
 Appearance.init();
