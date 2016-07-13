@@ -1,11 +1,13 @@
 // IMPORTS
-var express = require('express');
+var express        = require('express');
+var sessionManager = require('./lib/session/SessionManager.js');
 
 var app = express();
 
 __staticdir = 'public';
 
-app.use(express.static(__staticdir));
+//session middleware router
+app.use(sessionManager);
 
 app.get('/', function(req, res) {
 	res.send("Hello world! I'm running node.js version " + process.version + "! :D");
