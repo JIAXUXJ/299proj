@@ -4,6 +4,7 @@
 <head>
     <title>GO ONLINE</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/gameSetting.css">
 </head>
 <body>
     <div class="top-nav">
@@ -27,12 +28,22 @@
                     <input placeholder="Password" type="password" name="pw">
                     <button style='background: url("img/signin-nav.png")'></button>
                 </form>
-
             </div>
         </ul>
     </div>
-    
+    <div class="selection-nav try-nav">
+        <ul>
+            <li class="left selection-nav-on here"><a href="#">Hot Seat</a></li>
+        </ul>
+    </div>
+    <div class="left board try-board">
+        <div id="canvas-board" class="try-canvas">
+
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
 <script type="text/javascript" src="js/style.js"></script>
+<script type="text/javascript" src="js/svgFactory.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 </html>
