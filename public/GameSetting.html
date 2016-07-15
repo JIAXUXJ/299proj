@@ -14,6 +14,7 @@
         <li class="left"><a href="#">Rules</a></li>
         <li class="left"><a href="team.html">Team</a></li>
         <li class="left"><a href="try.html">Take A Try</a></li>
+        <li class="left nav-on here"><a href="#">Play Game</a></li>
         <li class="right"><a href="#">Log out</a></li>
         <li class="right" id="userSetting">User.. </li>
     </ul>
@@ -21,15 +22,56 @@
 </div>
 <div class="selection-nav">
     <ul>
-        <li class="left nav-on"><a href="#">Local</a></li>
+        <li class="left selection-nav-on here"><a href="#">Local</a></li>
         <li class="left"><a href="#">Networking</a></li>
     </ul>
 </div>
-<div class="canvas">
-    <div class="right board"></div>
+<div class="canvas f-cb">
+    <div class="left remove-ul-default customize">
+        <ul>
+            <li class="f-cb">
+                <div class="left">Choose your token:</div>
+                <select class="left sel-token">
+                    <option>White</option>
+                    <option>Black</option>
+                </select>
+            </li><br>
+            <li>
+                <div>Choose your background:</div>
+                <div>
+                    <a href="#" id="pre-icon"><img src="img/arrow-pre.png"></a>
+                    <img class="bg-sel" src="img/bg4.jpg">
+                    <a href="#" id="nxt-icon"><img src="img/arrow-next.png"></a>
+                </div>
+            </li><br>
+            <li class="f-cb">
+                <div class="left">Choose your board size:</div>
+                <select class="left sel-token">
+                    <option>9 * 9</option>
+                    <option>16 * 16</option>
+                    <option>21 * 21</option>
+                </select>
+            </li>
+        </ul>
+    </div>
+    <div class="left board">
+        <div id="canvas-board">
+
+        </div>
+    </div>
+    <div class="left spectate-online">
+        <div class="sign-nav">
+            <form id="" class="">
+                <input placeholder="Please enter the game id" type="text" name="gameId">&nbsp;
+                <button>submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
 <script type="text/javascript" src="js/gamesetting.js"></script>
 <script type="text/javascript" src="js/style.js"></script>
+<script type="text/javascript" src="js/svgFactory.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 </html>
