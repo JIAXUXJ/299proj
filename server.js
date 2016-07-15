@@ -1,21 +1,47 @@
-// IMPORTS
-var express = require('express');
+var express    = require("express");
 
 var app = express();
 
-__staticdir = 'public';
+// server static files from the public/ directory.
+app.use(express.static('public'));
 
-app.use(express.static(__staticdir));
+// function generateBoard(){
+//
+//     var state = {
+//         size : 0,
+//         board  : [],
+//     }
+//
+//     var max = 19;
+//     var min = 5;
+//
+//     while(state.size % 2 !== 1){
+//         state.size = Math.floor(Math.random() * (max - min + 1)) + min;
+//     }
+//
+//     var tmp = [];
+//     for(var i = 0; i < state.size; i++){
+//         tmp = [];
+//         for(var j = 0; j < state.size; j++){
+//             tmp.push(Math.floor(Math.random()*(2 - 0 + 1)));
+//         }
+//         state.board.push(tmp);
+//     }
+//
+//     return state;
+//
+// }
 
-app.get('/', function(req, res) {
-	res.send("Hello world! I'm running node.js version " + process.version + "! :D");
+
+
+/**
+ * Handle a request for task data.
+ */
+app.get("/data", function (req, res) {
+    console.log("GET Request to: /data");
+    // res.json(generateBoard());
 });
 
-// catch requests to undefined URLs. keep this at the end!
-app.get(/.*/, function(req, res) {
-	res.sendStatus(404);
-});
-
-app.listen(30052, function() {
-	console.log("Listening on port 30052");
+app.listen(process.env.PORT || 3000, function () {
+    console.log("Listening on port 3000");
 });
