@@ -4,11 +4,11 @@ var sessionManager = require('./lib/session/SessionManager.js');
 
 var app = express();
 
-__staticdir = 'public';
+_staticdir = 'public';
 
 //session middleware router
 app.use(sessionManager);
-app.use(express.public(staticdir));
+app.use(express.static(_staticdir));
 
 app.get('/', function(req, res) {
 	res.send("Hello world! I'm running node.js version " + process.version + "! :D");
