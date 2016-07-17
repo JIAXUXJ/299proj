@@ -8,6 +8,7 @@ __staticdir = 'public';
 
 //session middleware router
 app.use(sessionManager);
+app.use(express.public(staticdir));
 
 app.get('/', function(req, res) {
 	res.send("Hello world! I'm running node.js version " + process.version + "! :D");
