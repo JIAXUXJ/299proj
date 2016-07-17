@@ -1,18 +1,22 @@
 "use strict";
 
 var assert      = require('assert');
+var dbConfig    = require('../config.js').db;
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId    = require('mongodb').ObjectId;
 var db          = require('../lib/db/MongoDB.js');
 
 describe('db', function() {
+
+    const COLLECTION_GAME = dbConfig.GAME_COLLECTION;
+    const COLLECTION_USER = dbConfig.USER_COLLECTION;
     
     // db interface instance
     var dbInst = null;
     
     // separate mongo connection to verify data
     var dbCon = null;
-    
+
     before(function(done) {
         dbInst = db;
 
@@ -31,9 +35,9 @@ describe('db', function() {
     // start each test with a clean collection
     beforeEach(function(done) {
 
-        dbCon.collection("games").remove({}, function(err) {
+        dbCon.collection(COLLECTION_GAME).remove({}, function(err) {
             if (err) done(err);
-            dbCon.collection("players").remove({}, function(err) {
+            dbCon.collection(COLLECTION_USER).remove({}, function(err) {
                 if (err) done(err);
                 else done();
             });
@@ -70,7 +74,7 @@ describe('db', function() {
             dbInst.newGame(gameData, function() {
                 
                 //VERIFY
-                dbCon.collection("games").count({}, function(err, res) {
+                dbCon.collection(COLLECTION_GAME).count({}, function(err, res) {
                     if (err) throw err;
                     assert.equal(res, 1);
                     done();
@@ -97,7 +101,7 @@ describe('db', function() {
             dbInst.newGame(gameData, function(id) {
 
                 //VERIFY
-                dbCon.collection("games").count({_id : new ObjectId(id)}, function(err, res) {
+                dbCon.collection(COLLECTION_GAME).count({_id : new ObjectId(id)}, function(err, res) {
                     if (err) throw err;
                     assert.equal(res, 1);
                     done();
@@ -136,7 +140,7 @@ describe('db', function() {
                 dbInst.updateGameById(id, updateData, function(success) {
 
                     //VERIFY
-                    dbCon.collection("games").find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
+                    dbCon.collection(COLLECTION_GAME).find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
                         assert.equal(doc.PWhiteId, 5);
                         assert.equal(doc.PBlackId, 6);
                         done();
@@ -212,7 +216,7 @@ describe('db', function() {
             dbInst.newPlayer(playerData, function () {
 
                 //VERIFY
-                dbCon.collection("users").count({}, function (err, res) {
+                dbCon.collection(COLLECTION_USER).count({}, function (err, res) {
                     if (err) throw err;
                     assert.equal(res, 1);
                     done();
@@ -237,7 +241,7 @@ describe('db', function() {
             dbInst.newPlayer(playerData, function (id) {
 
                 //VERIFY
-                dbCon.collection("users").count({_id: new ObjectId(id)}, function (err, res) {
+                dbCon.collection(COLLECTION_USER).count({_id: new ObjectId(id)}, function (err, res) {
                     if (err) throw err;
                     assert.equal(res, 1);
                     done();
@@ -271,7 +275,7 @@ describe('db', function() {
                 dbInst.updatePlayerById(id, updateData, function(success) {
 
                     //VERIFY
-                    dbCon.collection("users").find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
+                    dbCon.collection(COLLECTION_USER).find({_id: new ObjectId(id)}).limit(1).next(function(err, doc) {
                         assert.equal(doc.NumWins, 15);
                         assert.equal(doc.NumLosses, 16);
                         done();
