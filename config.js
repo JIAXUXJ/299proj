@@ -22,6 +22,6 @@ data.db.PORT = 27017;
 data.db.NAME = CFG_NAME === 'DEPLOY' ? 'seng299group5' : 'test';
 data.db.USER_COLLECTION = 'users';
 data.db.GAME_COLLECTION = 'games';
-
+data.db.SESSION_COLLECTION = 'sessions';
 
 module.exports = data;
