@@ -31,7 +31,8 @@
     "express": "~4.14.0",
     "express-session": "^1.14.0",
     "mocha": "^2.5.3",
-    "mongodb": "^2.1.18"
+    "mongodb": "^2.1.18",
+    "node-uuid": "^1.4.7"
   },
   "optionalDependencies": {
     "n": "~2.1.1",
