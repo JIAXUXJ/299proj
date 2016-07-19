@@ -31,5 +31,10 @@ data.db.SESSION_COLLECTION = 'sessions';
 //Matchmaking Config
 data.matchmaking = {};
 data.matchmaking.RANDOM_WAIT_TIMEOUT = 10000;
+data.matchmaking.playerStates = {
+    ACTIVE: 'ACTIVE',
+    WAITING: 'WAITING',
+    IN_GAME: 'IN_GAME'
+};
 
 module.exports = data;
