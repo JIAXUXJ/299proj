@@ -40,7 +40,8 @@ data.matchmaking.playerStates = {
 
 //Bot Config
 data.bot = {};
-data.bot.SIMONS_BOT_LOC = "http://roberts.seng.uvic.ca:30000";
+data.bot.SIMONS_BOT_LOC = "http://roberts.seng.uvic.ca";
+data.bot.SIMONS_BOT_PORT = 30000;
 data.bot.SIMONS_RANDOM_BOT_ROUTE = "/ai/random";
 
 module.exports = data;
