@@ -2,7 +2,7 @@
 var express        = require('express');
 var bodyparser     = require('body-parser');
 var sessionManager = require('./lib/session/SessionManager.js');
-var socketIO       = require('util/io.js');
+var socketIO       = require('./lib/util/io.js');
 var auth           = require('./lib/auth/auth.js');
 
 var app = express();
@@ -15,12 +15,6 @@ app.disable('x-powered-by');
 // Package middleware
 app.use(bodyparser.urlencoded({extended: false }));
 app.use(bodyparser.json());
-
-// take out of production! pls!
-app.use(function(req, res, next){
-	console.log("body: " + JSON.stringify(req.body));
-	next();
-});
 
 // Application middleware
 app.use(sessionManager);
