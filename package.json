@@ -27,12 +27,14 @@
   ],
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "connect-mongo": "^1.2.1",
     "express": "~4.14.0",
     "express-session": "^1.14.0",
     "mocha": "^2.5.3",
     "mongodb": "^2.1.18",
-    "node-uuid": "^1.4.7"
+    "node-uuid": "^1.4.7",
+    "socket.io": "^1.4.8"
   },
   "optionalDependencies": {
     "n": "~2.1.1",
