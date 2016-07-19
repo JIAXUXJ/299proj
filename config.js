@@ -15,6 +15,10 @@ const CFG_NAME = 'TEST';
 
 var data = {};
 
+//Server Config
+data.server = {};
+data.server.PORT = 'DEPLOY' ? 30052 : 3000;
+
 //DB Config
 data.db = {};
 data.db.HOST = 'localhost';
