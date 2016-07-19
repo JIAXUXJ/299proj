@@ -31,6 +31,7 @@ data.db.SESSION_COLLECTION = 'sessions';
 //Matchmaking Config
 data.matchmaking = {};
 data.matchmaking.RANDOM_WAIT_TIMEOUT = 10000;
+data.matchmaking.CHALLENGE_TOPIC = 'challenge';
 data.matchmaking.playerStates = {
     ACTIVE: 'ACTIVE',
     WAITING: 'WAITING',
