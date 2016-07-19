@@ -28,4 +28,8 @@ data.db.USER_COLLECTION = 'users';
 data.db.GAME_COLLECTION = 'games';
 data.db.SESSION_COLLECTION = 'sessions';
 
+//Matchmaking Config
+data.matchmaking = {};
+data.matchmaking.RANDOM_WAIT_TIMEOUT = 10000;
+
 module.exports = data;
