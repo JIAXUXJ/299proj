@@ -15,6 +15,10 @@ const CFG_NAME = 'TEST';
 
 var data = {};
 
+//Server Config
+data.server = {};
+data.server.PORT = 'DEPLOY' ? 30052 : 3000;
+
 //DB Config
 data.db = {};
 data.db.HOST = 'localhost';
@@ -22,6 +26,22 @@ data.db.PORT = 27017;
 data.db.NAME = CFG_NAME === 'DEPLOY' ? 'seng299group5' : 'test';
 data.db.USER_COLLECTION = 'users';
 data.db.GAME_COLLECTION = 'games';
+data.db.SESSION_COLLECTION = 'sessions';
 
+//Matchmaking Config
+data.matchmaking = {};
+data.matchmaking.RANDOM_WAIT_TIMEOUT = 10000;
+data.matchmaking.CHALLENGE_TOPIC = 'challenge';
+data.matchmaking.playerStates = {
+    ACTIVE: 'ACTIVE',
+    WAITING: 'WAITING',
+    IN_GAME: 'IN_GAME'
+};
+
+//Bot Config
+data.bot = {};
+data.bot.SIMONS_BOT_LOC = "http://roberts.seng.uvic.ca";
+data.bot.SIMONS_BOT_PORT = 30000;
+data.bot.SIMONS_RANDOM_BOT_ROUTE = "/ai/random";
 
 module.exports = data;
