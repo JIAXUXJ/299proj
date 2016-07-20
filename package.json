@@ -1,0 +1,43 @@
+{
+  "name": "seng-299-go",
+  "version": "0.1.0",
+  "description": "\"Go\" web app project for SENG 299",
+  "main": "server.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "node scripts/runTests.js",
+    "init-env-server": "npm install && npm run-script get-node",
+    "get-node": "mkdir n_working && export N_PREFIX=$PWD/n_working && ./node_modules/n/bin/n latest",
+    "start": "export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever start -c \"./node_modules/n/bin/n use latest\" server.js",
+    "stop": "export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever stopall",
+    "restart": "npm run-script stop && npm run-script start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/JIAXUXJ/299proj.git"
+  },
+  "contributors": [
+    "Charlie Friend <cdfriend@uvic.ca>",
+    "Tyler Hardanek <tylerhar@uvic.ca>",
+    "Alex Laing <lainga@uvic.ca>",
+    "Alex Rebalkin <alexreba@uvic.ca>",
+    "Jia Xu <xujia@uvic.ca>"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "connect-mongo": "^1.2.1",
+    "express": "~4.14.0",
+    "express-session": "^1.14.0",
+    "mocha": "^2.5.3",
+    "mongodb": "^2.1.18",
+    "node-uuid": "^1.4.7",
+    "socket.io": "^1.4.8"
+  },
+  "optionalDependencies": {
+    "n": "~2.1.1",
+    "forever": "~0.15.2"
+  }
+}
