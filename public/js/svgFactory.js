@@ -18,6 +18,9 @@ var SVGNameSpace = "http://www.w3.org/2000/svg";
  * @param stroke {number} the thickness of the line.
  * @returns {object}
  */
+
+
+
 function makeLine(x1, y1, x2, y2, color, stroke) {
     var e = document.createElementNS(SVGNameSpace, "line");
     e.setAttribute("x1", x1);
