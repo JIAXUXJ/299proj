@@ -3,3 +3,4 @@ n_working/*
 npm-debug.log
 testData/*
 .idea/*
+*.DS_Store
