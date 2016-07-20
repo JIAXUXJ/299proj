@@ -30,7 +30,7 @@ function drawBoard(state){
     }else {
         unitSize = 50;
     }
-    var canvas = $("#canvas");
+    var canvas = $("#canvas-board");
     var W = state.size * unitSize + unitSize, H = state.size * unitSize + unitSize;
     canvas.css("height", H );
     canvas.css("width", W );
