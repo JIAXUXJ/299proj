@@ -8,6 +8,7 @@ var socketIO       = require('./lib/util/io.js');
 var auth           = require('./lib/auth/auth.js');
 var serverConfig   = require('./config.js').server;
 var logger         = require('./lib/util/logger.js');
+var matchmaking    = require('./lib/matchmaking/MatchmakingRouter.js');
 
 var app = express();
 
@@ -27,6 +28,12 @@ app.use(express.static(_staticdir));
 
 //initialize Socket.io
 socketIO.init(app.server);
+
+/***** ROUTES *****/
+
+app.use(matchmaking);
+
+/***** END ROUTES *****/
 
 // catch requests to undefined URLs. keep this at the end!
 app.get(/.*/, function(req, res) {
