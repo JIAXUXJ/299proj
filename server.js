@@ -1,6 +1,7 @@
 // IMPORTS
 var express        = require('express');
 var bodyparser     = require('body-parser');
+
 var sessionManager = require('./lib/session/SessionManager.js');
 var socketIO       = require('./lib/util/io.js');
 var auth           = require('./lib/auth/auth.js');
@@ -28,9 +29,10 @@ socketIO.init(app.server);
 
 // catch requests to undefined URLs. keep this at the end!
 app.get(/.*/, function(req, res) {
-	res.status(404).send("Page not found.");
+    res.status(404).send("Page not found.");
+    
 });
 
 app.listen(serverConfig.PORT, function() {
-	logger.info("Listening on port " + serverConfig.PORT);
+    logger.info("Listening on port " + serverConfig.PORT);
 });
