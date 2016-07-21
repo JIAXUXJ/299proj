@@ -4,6 +4,7 @@ var express        = require('express');
 var bodyparser     = require('body-parser');
 
 var sessionManager = require('./lib/session/SessionManager.js');
+var auth           = require('./lib/auth/auth.js');
 var socketIO       = require('./lib/util/io.js');
 var auth           = require('./lib/auth/auth.js');
 var serverConfig   = require('./config.js').server;
@@ -26,7 +27,6 @@ app.use(bodyparser.json());
 
 // Application middleware
 app.use(sessionManager);
-app.use(auth);
 app.use(express.static(_staticdir));
 
 //initialize Socket.io
