@@ -22,7 +22,7 @@ data.server.PORT = 'DEPLOY' ? 30052 : 3000;
 //DB Config
 data.db = {};
 data.db.HOST = 'localhost';
-data.db.PORT = 27017;
+data.db.PORT = 27018;
 data.db.NAME = CFG_NAME === 'DEPLOY' ? 'seng299group5' : 'test';
 data.db.USER_COLLECTION = 'users';
 data.db.GAME_COLLECTION = 'games';
