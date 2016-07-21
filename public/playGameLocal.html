@@ -2,12 +2,12 @@
 <html>
 <meta type-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-    <title>GAME SETTINGS</title>
+    <title>Local</title>
     <link rel="stylesheet" type="text/css" href="css/new-version.css">
     <link rel="stylesheet" type="text/css" href="css/gameSetting.css">
 </head>
 <body>
-<div class="top-nav-login top-nav">
+<div class="top-nav-login top-nav f-cb">
     <ul>
         <li class="logo left"></li>
         <li class="left"><a href="index.html">Home</a></li>
@@ -34,83 +34,48 @@
     </ul>
     <div class="remainder">click name to settings</div>
 </div>
-<div class="selection-nav">
+<div class="selection-nav f-cb">
     <ul>
-        <li class="left selection-nav-on here"><a href="#">Local</a></li>
+        <li class="left selection-nav-on here"><a href="#">Hot Seat</a></li>
         <li class="left"><a href="playGameAI.html">vs.AI</a></li>
         <li class="left"><a href="playGameNetwork.html">vs.Online Users</a></li>
     </ul>
 </div>
 <div class="canvas f-cb">
-    <!--<div class="left remove-ul-default customize">-->
-        <!--<ul>-->
-            <!--<li class="f-cb">-->
-                <!--<div class="left">Choose your token:</div>-->
-                <!--<select class="left sel-token">-->
-                    <!--<option>White</option>-->
-                    <!--<option>Black</option>-->
-                <!--</select>-->
-            <!--</li><br>-->
-            <!--<li>-->
-                <!--<div>Choose your background:</div>-->
-                <!--<div class="bg-sel">-->
-                    <!--&lt;!&ndash;<a href="#" id="pre-icon"><img src="img/arrow-pre.png"></a>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<img class="bg-sel" src="img/bg4.jpg">&ndash;&gt;-->
-                    <!--&lt;!&ndash;select: <input type="checkbox">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<a href="#" id="nxt-icon"><img src="img/arrow-next.png"></a>&ndash;&gt;-->
-                    <!--<input type="checkbox" value="burlywood&darkkhaki"><img src="img/bg1.png">-->
-                    <!--<input type="checkbox" value="burlywood"><img src="img/bg3.png">-->
-                    <!--<input type="checkbox" value="bisque"><img src="img/bg4.png">-->
-                    <!--<input type="checkbox" value="cadetblue"><img src="img/bg5.png">-->
-
-                <!--</div>-->
-            <!--</li><br>-->
-            <!--<li class="f-cb">-->
-                <!--<div class="left">Choose your board size:</div>-->
-                <!--<select class="left sel-token">-->
-                    <!--<option>9 * 9</option>-->
-                    <!--<option>13 * 13</option>-->
-                    <!--<option>19 * 19</option>-->
-                <!--</select>-->
-            <!--</li>-->
-        <!--</ul>-->
-        <!--<button class="play-button">PLAY</button>-->
-    <!--</div>-->
-    <div class="left board">
+    <div class="board">
         <div id="canvas-board">
-
-            <div class="left remove-ul-default customize">
+            <div class="remove-ul-default customize">
                 <ul>
                     <li>
-                        <div id="view-playedGame"">
+                        <div id="view-playedGame">
                             Uses online:
                             <table class="spec-table">
                                 <thead>
-                                <tr><th>Game Id</th><th>State</th><th>Play With</th></tr>
+                                    <tr><th>Game Id</th><th>State</th><th>Play With</th></tr>
                                 </thead>
                                 <tbody>
-                                <tr><td>1111</td><td>Win</td><td>--</td></tr>
-                                <tr><td>2222</td><td>Win</td><td>--</td></tr>
-                                <tr><td>3333</td><td>Win</td><td>--</td></tr>
+                                    <tr><td>1111</td><td>Win</td><td>--</td></tr>
+                                    <tr><td>2222</td><td>Win</td><td>--</td></tr>
+                                    <tr><td>3333</td><td>Win</td><td>--</td></tr>
                                 </tbody>
                             </table>
                         </div>
                     </li>
                     <li class="f-cb">
                         <div class="left">Choose your token:</div>
-                        <select class="left sel-token">
+                        <select class="left sel-token" id="tokenColor">
                             <option>White</option>
                             <option>Black</option>
                         </select>
                     </li><br>
                     <li>
                         <div>Choose your background:</div>
-                        <div class="bg-sel">
+                        <div class="bg-sel" id="bg-customize">
                             <!--<a href="#" id="pre-icon"><img src="img/arrow-pre.png"></a>-->
                             <!--<img class="bg-sel" src="img/bg4.jpg">-->
                             <!--select: <input type="checkbox">-->
                             <!--<a href="#" id="nxt-icon"><img src="img/arrow-next.png"></a>-->
-                            <input type="checkbox" value="burlywood&darkkhaki"><img src="img/bg1.png">
+                            <input type="checkbox" value="burlywood;darkkhaki"><img src="img/bg1.png">
                             <input type="checkbox" value="burlywood"><img src="img/bg3.png">
                             <input type="checkbox" value="bisque"><img src="img/bg4.png">
                             <input type="checkbox" value="cadetblue"><img src="img/bg5.png">
@@ -119,43 +84,22 @@
                     </li><br>
                     <li class="f-cb">
                         <div class="left">Choose your board size:</div>
-                        <select class="left sel-token">
-                            <option>9 * 9</option>
-                            <option>13 * 13</option>
-                            <option>19 * 19</option>
+                        <select class="left sel-token" id="size">
+                            <option value="9">9 * 9</option>
+                            <option value="13">13 * 13</option>
+                            <option value="19">19 * 19</option>
                         </select>
                     </li>
                 </ul>
-                <button class="play-button">PLAY</button>
+                <button class="play-button" id="play-button">PLAY</button>
             </div>
         </div>
-    </div>
-    <!--<div class="left spectate-online" id="local">-->
-        <!--<div class="spec-gengral">-->
-            <!--<form id="" class="">-->
-                <!--<input placeholder="Please enter the game id" type="text" name="gameId">&nbsp;-->
-                <!--<button class="spec-button">Invite</button>-->
-            <!--</form>-->
-            <!--<div id="view-playedGame">-->
-                <!--Uses online:-->
-                <!--<table class="spec-table">-->
-                    <!--<thead>-->
-                    <!--<tr><th>Game Id</th><th>State</th><th>Play With</th></tr>-->
-                    <!--</thead>-->
-                    <!--<tbody>-->
-                    <!--<tr><td>1111</td><td>Win</td><td>&#45;&#45;</td></tr>-->
-                    <!--<tr><td>2222</td><td>Win</td><td>&#45;&#45;</td></tr>-->
-                    <!--<tr><td>3333</td><td>Win</td><td>&#45;&#45;</td></tr>-->
-                    <!--</tbody>-->
-                <!--</table>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+
 </div>
 </body>
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
-<script type="text/javascript" src="js/gamesetting.js"></script>
 <script type="text/javascript" src="js/style.js"></script>
 <script type="text/javascript" src="js/svgFactory.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/ServerInterface.js"></script>
+<script type="text/javascript" src="js/gamesetting.js"></script>
 </html>

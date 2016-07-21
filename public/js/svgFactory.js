@@ -80,6 +80,5 @@ function makeSVG(w, h){
     s.setAttribute("height", h);
     s.setAttribute('xmlns', SVGNameSpace);
     s.setAttribute('xmlns:xlink',"http://www.w3.org/1999/xlink");
-    // s.css(background-color,'aquamarine');
     return s;
 }
