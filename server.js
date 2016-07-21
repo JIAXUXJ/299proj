@@ -11,7 +11,7 @@ var serverConfig   = require('./config.js').server;
 var logger         = require('./lib/util/logger.js');
 var matchmaking    = require('./lib/matchmaking/MatchmakingRouter.js');
 var user           = require('./lib/other/userRouter.js');
-//var game           = require('./lib/game/gameRouter.js');
+var game           = require('./lib/game/gameRouter.js');
 var review         = require('./lib/other/reviewRouter.js');
 
 var app = express();
@@ -36,7 +36,7 @@ socketIO.init(app.server);
 
 app.use(matchmaking);
 app.use('/user', user);
-//app.use('/game', game);
+app.use('/game', game);
 app.use('/review', review);
 app.use('/new', matchmaking);
 
