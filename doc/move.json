@@ -1,7 +1,8 @@
 {
-  "TimeStamp": "",
-  "Tum": "",
-  "Move_status": "",
-  "Move_loc": {}
+  "game": uuid,
+  "CoordX": int,
+  "CoordY": int,
+  "pass": string,
+  "player": string (black/white/controller)
 }
 
