@@ -23,7 +23,7 @@ function startHotSeat() {
             if (data.redirect) {
                 window.location.href = data.redirect;
             }
-            else if (textStatus !== 'SUCCESS') {
+            else if (textStatus !== 'success') {
                 alert("Failed to access server.");
             }
         }
