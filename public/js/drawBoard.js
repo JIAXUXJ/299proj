@@ -18,7 +18,7 @@ function getData(cb) {
 
     });
 }
-function drawBoard() {
+function drawBoard(board, size) {
     //bg is a string passed from user setting page, it is a string look like:
     // token-color; bg-color; size
     console.log(window.location.search);
@@ -27,7 +27,9 @@ function drawBoard() {
     var bg = bg.split(";");
 
     console.log("Board Size: ", bg[1]);
-    var size = bg[1];
+    
+    // deprecated the following piece
+    //var size = bg[1];
     var unitSize;
     if(size <= 10){
         unitSize = 105.55555;
@@ -81,18 +83,25 @@ function drawBoard() {
     // TODO state.board from server
     for(var i = 0; i < size; i++){
         for (var j = 0; j < size; j ++){
-            svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));
-            // if(state.board[i][j] == 0){
-            //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'balck'));
-            // }else if(state.board[i][j] == 1){
-            //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'white'));
-            // }else if(state.board[i][j] == 2){
-            //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'white'));
-            // }
+            //svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));
+            if(state.board[i][j] == 'BLACK'){
+                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'black'));
+            }else if(state.board[i][j] == 'WHITE'){
+                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'white'));
+            }else if(state.board[i][j] == 0){
+                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'gray'));
+            }
         }
     }
 
     canvas.append(svg);
+}
+function updateBoard(game){
+
+    var game = getData();
+    drawBoard(game.board, game.size);
+
+
 }
 function init() {
     console.log("Initalizing Page...");
@@ -100,6 +109,6 @@ function init() {
     // getData(drawBoard);
 
     //to test now:
-    drawBoard();
+    drawBoard(game.board);
 }
 init();
