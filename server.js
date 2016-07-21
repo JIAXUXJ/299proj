@@ -38,6 +38,7 @@ app.use(matchmaking);
 app.use('/user', user);
 //app.use('/game', game);
 app.use('/review', review);
+app.use('/new', matchmaking);
 
 /***** END ROUTES *****/
 
