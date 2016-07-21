@@ -9,6 +9,9 @@ var auth           = require('./lib/auth/auth.js');
 var serverConfig   = require('./config.js').server;
 var logger         = require('./lib/util/logger.js');
 var matchmaking    = require('./lib/matchmaking/MatchmakingRouter.js');
+var user           = require('./lib/aux/userRouter.js');
+//var game           = require('./lib/game/gameRouter.js');
+var review         = require('./lib/aux/reviewRouter.js');
 
 var app = express();
 
@@ -32,6 +35,9 @@ socketIO.init(app.server);
 /***** ROUTES *****/
 
 app.use(matchmaking);
+app.use('/user', user);
+//app.use('/game', game);
+app.use('/review', review);
 
 /***** END ROUTES *****/
 
