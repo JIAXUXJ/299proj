@@ -5,6 +5,7 @@
     <title>GAME SETTINGS</title>
     <link rel="stylesheet" type="text/css" href="css/new-version.css">
     <link rel="stylesheet" type="text/css" href="css/gameSetting.css">
+    <link rel="stylesheet" type="text/css" href="css/TokenColor.css">
 </head>
 <body>
 <div class="top-nav-login top-nav">
@@ -41,9 +42,14 @@
         <li class="left"><a href="playGameNetwork.html">vs.Online Users</a></li>
     </ul>
 </div>
-<div class="canvas f-cb">
-    <div class="left board">
-        <div id="canvas-board">
+<div class="canvas">
+    <div class="board f-cb">
+        <div id="side-banner" class="left">
+            <div>White Token:</div><br>
+            <div>Black Token:</div><br>
+            <div>Next Turn:</div>
+        </div>
+        <div id="canvas-board" class="left">
 
         </div>
     </div>
@@ -54,4 +60,5 @@
 <script type="text/javascript" src="js/style.js"></script>
 <script type="text/javascript" src="js/svgFactory.js"></script>
 <script type="text/javascript" src="js/drawBoard.js"></script>
+<script type="text/javascript" src="js/gamePlay.js"></script>
 </html>

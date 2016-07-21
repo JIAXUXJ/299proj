@@ -78,6 +78,7 @@ function drawBoard() {
         svg.append(makeLine(1, a, H-1, a));
     }
 
+    
     canvas.append(svg);
 }
 function init() {

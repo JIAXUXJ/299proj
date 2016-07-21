@@ -27,7 +27,7 @@ body{background: url("../img/20160606211514.png"); margin: 0 auto;}
 .spectate{background-color: rgba(229, 236, 234, 0.3); width: 55em; height: 42em; margin-top: 5em; margin-right: 5em;}
 .remainder{color: #ffffff; position: fixed;right: 13em; top: 5em; display: none; font-size: 1.2em;}
 
-.canvas{width: 50%; height: 52em; margin-left: 22%;}
+.canvas{width: 72%; height: 52em;}
 
 .customize{background-color: rgba(229, 236, 234, 0.3);height: 100%; width: 100%; border-radius: 2.5em; font-size: 1.4em;}
 .remove-ul-default ul li{list-style: none; display: block;font-size: 1.5em; color: #344a5a;}

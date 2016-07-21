@@ -18,3 +18,4 @@
 .spec-table{width: 17em; text-align: center; margin-top: 0.5em; border: 0.1em dashed #d6b01c; color: #ffffff; padding-bottom: 1em;}
 .spec-table thead tr th{padding-right: 1em; text-align: center;}
 /*.spec-table th{border-right: 0.1em solid rgba(232, 241, 111, 0.2);}*/
+#side-banner{width: 23%; padding-left: 3em; color: #ffffff; font-size: 2em;}
