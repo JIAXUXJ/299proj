@@ -9,7 +9,8 @@
  */
 function getData(){
 
-    gameID = window.location.href.split("?gameID=")[-1];
+    gameID = window.location.href.split("?gameID=")[1];
+    console.log(gameID);
 
     $.get("/game/" + gameID, function(data, textStatus, xhr){
         console.log("Response for /data: "+textStatus);
@@ -161,3 +162,6 @@ function init(){
 
     });
 }
+
+
+init();
