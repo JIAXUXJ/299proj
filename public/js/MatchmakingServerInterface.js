@@ -20,9 +20,9 @@ function startHotSeat() {
             "boardSize": boardSize
         },
         function(data, textStatus) {
-        	console.log(JSON.stringify(data));
-            if (data.redirect) {
-                window.location.href = data.redirect;
+            if (data) {
+                console.log(data);
+                window.location.href = '/game/' + data;
             }
             else if (textStatus !== 'success') {
                 alert("Failed to access server.");
