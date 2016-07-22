@@ -132,7 +132,7 @@ function init(){
             {
                 CoordX: CoorX,
                 CoordY: CoorY,
-                color: "black", //not sure how to determine my color here....
+                color: "Black", //not sure how to determine my color here....
                 pass: false,
                 game: gameID,
             }, function(data, textStatus) {
