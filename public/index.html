@@ -5,8 +5,8 @@
     <title>AlphaGo</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
-    <div class="top-nav">
+<body height="100%">
+    <div class="top-nav" width="100%">
         <ul>
             <li class="logo left"></li>
             <li class="left here nav-on"><a href="#">Home</a></li>
@@ -22,11 +22,11 @@
             </div>
         </ul>
     </div><br/>
-    <div class="canvas fc-b" onload="init()">
+    <div class="canvas fc-b" onload="init()" height="auto" width="95%">
 		<div id="result">
 		</div>
 	</div>
-	<div class="top-nav">
+	<div class="top-nav" width="100%">
 		<ul>
 			<li class="left"><button id="start">START</button></li>
 			<li class="left"><button id="move">move</button></li>
@@ -91,8 +91,10 @@ function drawBoard(state){
     // everything else should adapt to an adjustable
     // height and width.
     console.log("Board Size: ", state.BoardSize);
-    var unitSize;
-    var canvasSize = $("#result").width();
+    var canvasSize = $(".fc-b").height();
+    var unitSize = (canvasSize / state.BoardSize) * 0.75;
+    console.log(unitSize);
+    /*
     if(state.BoardSize <= 10){
         unitSize = 100;
     }else if(state.BoardSize > 10 && state.BoardSize <= 15){
@@ -100,10 +102,9 @@ function drawBoard(state){
     }else {
         unitSize = 50;
     }
+    */
     var canvas = $("#result");
     var W = state.BoardSize * unitSize + unitSize, H = state.BoardSize * unitSize + unitSize;
-    canvas.attr("height", H );
-    canvas.attr("width", W );
 
     // Change the height and width of the board here...
     // The actual SVG element to add to.
