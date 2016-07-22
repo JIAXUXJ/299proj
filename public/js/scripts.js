@@ -119,6 +119,7 @@ function drawBoard(state) {
     canvas.append(svg);
     gamePlay();
 }
+//when user click a circle.
 function gamePlay(){
     $('circle').on('click', function () {
         console.log(">>>>>>>>>>>");
@@ -141,6 +142,9 @@ function gamePlay(){
             CoorY = 2;
         }
         console.log(CoorX, CoorY);
+        // TODO write sth here: to check if it is a valid move, if yes, user can place token here.
+        //TODO: I'm note faimiliar with server code, so I don't know how to send data to server here
+        //TODO: all things should be write below here, donot change any other JS code in this file.
 
     });
     $('#canvas-board').on('mouseover', function () {
@@ -148,6 +152,7 @@ function gamePlay(){
         // $(this)[0].style.cursor = url('./img/black.ani');
         // $(this)[0].css({cursor: "help"});
     });
+
 
 
 }
@@ -161,8 +166,6 @@ function init() {
     // TODO: request data from server
     getData(drawBoard);
     //gamePlay func can return the position of circle.
-
-
 
 
 }
