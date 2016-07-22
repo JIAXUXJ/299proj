@@ -2,6 +2,7 @@
 // IMPORTS
 var express        = require('express');
 var bodyparser     = require('body-parser');
+var http           = require('http');
 
 var sessionManager = require('./lib/session/SessionManager.js');
 var auth           = require('./lib/auth/auth.js');
@@ -15,6 +16,7 @@ var game           = require('./lib/game/gameRouter.js');
 var review         = require('./lib/other/reviewRouter.js');
 
 var app = express();
+var server = http.Server(app);
 
 _staticdir = 'public';
 
@@ -22,7 +24,7 @@ _staticdir = 'public';
 app.disable('x-powered-by');
 
 //initialize Socket.io
-socketIO.init(app.server);
+socketIO.init(server);
 
 // Package middleware
 app.use(bodyparser.urlencoded({extended: false }));
@@ -48,6 +50,6 @@ app.get(/.*/, function(req, res) {
     
 });
 
-app.listen(serverConfig.PORT, function() {
+server.listen(serverConfig.PORT, function() {
     logger.info("Listening on port " + serverConfig.PORT);
 });
