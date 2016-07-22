@@ -102,18 +102,17 @@ function drawBoard(state) {
     }
 
     // TODO : only thing need to be change when data refreshed from server.
+    var board = state.Board[0];
     for(var i = 0; i < size; i++){
         for (var j = 0; j < size; j ++){
-            svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
-            // if(state.board[i][j] == 0){
-            //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(1, 1, 1, 1)'));//black
-            // }else if(state.board[i][j] == 1){
-            //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));//white
-            // }else if(state.board[i][j] == 2){
-            //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));//nothing
-            // }else{
-            //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
-            // }
+            // svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
+            if(state.Board[i][j] == 'BLACK'){
+                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(1, 1, 1, 1)'));//black
+            }else if(state.Board[i][j] == 'WHITE'){
+                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));//white
+            }else{
+                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
+            }
         }
     }
     canvas.append(svg);
