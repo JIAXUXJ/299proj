@@ -78,8 +78,8 @@ function pollData(){
 			$.ajax({
 			url: "/game/"+gameID,
 			success: function(data){
-				$("#result").text(JSON.stringify(data));
-				//drawBoard(data);
+				//$("#result").text(JSON.stringify(data));
+				drawBoard(data);
 				pollData();
 			},
 			dataType: "json"});
@@ -90,17 +90,17 @@ function pollData(){
 function drawBoard(state){
     // everything else should adapt to an adjustable
     // height and width.
-    console.log("Board Size: ", state.size);
+    console.log("Board Size: ", state.BoardSize);
     var unitSize;
-    if(state.size <= 10){
+    if(state.BoardSize <= 10){
         unitSize = 100;
-    }else if(state.size > 10 && state.size <= 15){
+    }else if(state.BoardSize > 10 && state.BoardSize <= 15){
         unitSize = 70;
     }else {
         unitSize = 50;
     }
-    var canvas = $("#canvas-board");
-    var W = state.size * unitSize + unitSize, H = state.size * unitSize + unitSize;
+    var canvas = $("#result");
+    var W = state.BoardSize * unitSize + unitSize, H = state.BoardSize * unitSize + unitSize;
     canvas.css("height", H );
     canvas.css("width", W );
 
@@ -133,13 +133,13 @@ function drawBoard(state){
     }
 
     // append the svg object to the canvas object.
-    var board = state.board[0];
+    var board = state.Board[0];
 
-    for(var i = 0; i < state.size; i++){
-        for (var j = 0; j < state.size; j ++){
-            if(state.board[i][j] == 'BLACK'){
+    for(var i = 0; i < state.BoardSize; i++){
+        for (var j = 0; j < state.BoardSize; j ++){
+            if(state.Board[i][j] == 'BLACK'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'BLACK'));
-            }else if(state.board[i][j] == 'WHITE'){
+            }else if(state.Board[i][j] == 'WHITE'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'WHITE'));
             }else{
 				svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'GREY'));
