@@ -64,6 +64,9 @@ function makeCircle(x, y, r, c){
     circ.setAttribute('cx', x);
     circ.setAttribute('cy', y);
     circ.setAttribute('r', r);
+    // console.log(i, j)
+    // circ.setAttribute('CoordX', x);
+    // circ.setAttribute('CoordY', j);
     circ.style.fill = c;
     return circ;
 }
@@ -80,6 +83,5 @@ function makeSVG(w, h){
     s.setAttribute("height", h);
     s.setAttribute('xmlns', SVGNameSpace);
     s.setAttribute('xmlns:xlink',"http://www.w3.org/1999/xlink");
-    // s.css(background-color,'aquamarine');
     return s;
 }
