@@ -92,6 +92,7 @@ function drawBoard(state){
     // height and width.
     console.log("Board Size: ", state.BoardSize);
     var unitSize;
+    var canvasSize = $("#result").width();
     if(state.BoardSize <= 10){
         unitSize = 100;
     }else if(state.BoardSize > 10 && state.BoardSize <= 15){
@@ -101,8 +102,8 @@ function drawBoard(state){
     }
     var canvas = $("#result");
     var W = state.BoardSize * unitSize + unitSize, H = state.BoardSize * unitSize + unitSize;
-    canvas.css("height", H );
-    canvas.css("width", W );
+    canvas.attr("height", H );
+    canvas.attr("width", W );
 
     // Change the height and width of the board here...
     // The actual SVG element to add to.
@@ -146,7 +147,7 @@ function drawBoard(state){
 			}
         }
     }
-
+	canvas.empty();
     canvas.append(svg);
 }
 
