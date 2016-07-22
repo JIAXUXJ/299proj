@@ -2,9 +2,8 @@
 <html>
 <meta type-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-    <title>GO ONLINE</title>
+    <title>AlphaGo</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!--<link rel="stylesheet" type="text/css" href="css/gameSetting.css">-->
 </head>
 <body>
     <div class="top-nav">
@@ -14,66 +13,65 @@
             <li class="left"><a href="rule.html">Rules</a></li>
             <li class="left"><a href="team.html">Team</a></li>
             <li class="left"><a href="playGameLocal.html">Play Game</a></li>
-
-            <!--<li class="right"><a href="#">sign up</a></li>-->
-            <div class="right sign-nav">
-                <form id="" class="">
-                    <input placeholder="User Name" type="text" name="userName">&nbsp;
-                    <input placeholder="Password" type="password" name="pw">
-                    <input placeholder="Re-type password" type="password" name="re_pw">
-                    <button style='background: url("img/signup-nav.png")'></button>
-                </form>
-            </div>
             <div class="right sign-nav">
                 <form id="" class="">
                     <input placeholder="User Name" type="text" name="userName">&nbsp;
                     <input placeholder="Password" type="password" name="pw">
                     <button style='background: url("img/signin-nav.png")'></button>
                 </form>
-
             </div>
         </ul>
-    </div>
-    <!--<div class="sign">-->
-            <!--&lt;!&ndash;<form id="sign-in" class="left">&ndash;&gt;-->
-                <!--&lt;!&ndash;<input placeholder="User Name" type="text" name="userName"><br><br>&ndash;&gt;-->
-                <!--&lt;!&ndash;<input placeholder="Password" type="password" name="pw"><br><br>&ndash;&gt;-->
-                <!--&lt;!&ndash;<button style='background: url("img/signin.png")'></button>&ndash;&gt;-->
-            <!--&lt;!&ndash;</form>&ndash;&gt;-->
-            <!--<form id="sign-up" class="left" style="margin-left: 150px">-->
-                <!--<input placeholder="User Name (unique)" type="text" name="userName"><br><br>-->
-                <!--<input placeholder="Password" type="password" name="pw"><br><br>-->
-                <!--<input placeholder="Re-type password" type="password" name="re_pw"><br><br>-->
-                <!--<button></button>-->
-            <!--</form>-->
-    <!--</div>-->
-    <div class="left go-pic"></div>
-    <div class="spectate right ">
-        <div class="spec-home">
-            <!--<form id="" class="">-->
-                <!--<input placeholder="Please enter the game id" type="text" name="gameId">&nbsp;-->
-                <!--<button class="spec-button">Invite</button>-->
-            <!--</form>-->
-            <div id="spec-home">
-                Spectate:
-                <table>
-                    <thead>
-                    <tr><th>Game Id</th><th>Score</th><th>Play With</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr><td>1111</td><td>--</td><td>--</td></tr>
-                    <tr><td>2222</td><td>--</td><td>--</td></tr>
-                    <tr><td>3333</td><td>--</td><td>--</td></tr>
-                    <tr><td>4444</td><td>--</td><td>--</td></tr>
-                    <tr><td>5555</td><td>--</td><td>--</td></tr>
-                    <tr><td>6666</td><td>--</td><td>--</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
+    </div><br/>
+    <div class="canvas fc-b" onload="init()">
+		<div id="result">
+		</div>
+	</div>
+	<div class="top-nav">
+		<ul>
+			<li class="left"><button id="start">START</button></li>
+			<li class="left"><button id="move">move</button></li>
+			<li class="left"><button id="pass">pass</button></li>
+		</ul>
 </body>
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
 <script type="text/javascript" src="js/style.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	console.log("ready.");
+	$("#start").click(function(){
+		$.post(
+			"/match/startHotSeat",
+			{ "boardSize" : 9 },
+			function(data){
+				window.location.href=("/index.html?gameID="+data);
+				console.log("got data.:\n\t"+data);
+				poll();
+			}
+		);
+	});
+	$("#move").click(function(){
+		$("#result").text("move");
+	});
+	$("#pass").click(function(){
+		$("#result").text("pass");
+	});
+});
+
+function pollData(){
+	setTimeout(function(){
+		var gameID = window.location.href.split("?gameID=")[1];
+		if(gameID){
+			$.ajax({
+			url: "/game/"+gameID,
+			success: function(data){
+				$("#result").text(JSON.stringify(data));
+				pollData();
+			},
+			dataType: "json"});
+		}
+	}, 4000);
+}
+
+pollData();
+</script>
 </html>
