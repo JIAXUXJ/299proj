@@ -1,17 +1,27 @@
 /**
+ * Main gameplay script
+ * Run Socket.io and JQuery scripts before using this!
+ *
  * Created by Joye on 2016-07-15.
  */
 /**
  * Requests a new board state from the server's /data route.
- * @param cb {function} callback to call when the request comes back from the server.
  */
-function getData(cb){
-    $.get("/data", function(data, textStatus, xhr){
+function getData(){
+
+    var gameID = window.location.href.split("?gameID=")[-1];
+
+    $.get("/game/" + gameID, function(data, textStatus, xhr){
         console.log("Response for /data: "+textStatus);
-        console.log("data: ", data)
-        // handle any errors here....
-        // draw the board....
-        cb(data);
+        console.log("data: ", data);
+
+        //subscribe to socket.io updates
+        var socket = io();
+        socket.emit('observe-register', gameID);
+
+
+        // draw initial board state
+        drawBoard(data.Board);
     });
 }
 /**
