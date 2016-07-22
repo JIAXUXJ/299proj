@@ -37,6 +37,10 @@
 <script type="text/javascript" src="js/style.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	window.gameID = window.location.href.split("?gameID=")[1];
+	if(gameID){
+		$("#start").attr("id", "resign").text("Resign");
+	}
 	console.log("ready.");
 	$("#start").click(function(){
 		$.post(
@@ -45,9 +49,19 @@ $(document).ready(function(){
 			function(data){
 				window.location.href=("/index.html?gameID="+data);
 				console.log("got data.:\n\t"+data);
-				poll();
 			}
 		);
+	});
+	$("#resign").click(function(){
+		if(gameID){
+			$.ajax({
+			url: "/game/"+gameID+"/logout",
+			success: function(data){
+				console.log(JSON.stringify(data));
+				window.location.href=("/index.html");
+			},
+			dataType: "json"});
+		}
 	});
 	$("#move").click(function(){
 		$("#result").text("move");
@@ -59,12 +73,12 @@ $(document).ready(function(){
 
 function pollData(){
 	setTimeout(function(){
-		var gameID = window.location.href.split("?gameID=")[1];
 		if(gameID){
 			$.ajax({
 			url: "/game/"+gameID,
 			success: function(data){
 				$("#result").text(JSON.stringify(data));
+				//drawBoard(data);
 				pollData();
 			},
 			dataType: "json"});
