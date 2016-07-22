@@ -7,6 +7,11 @@
  */
 var v = parseUrl();
 console.log('v["gameID"]: ', v['gameID']);
+var bg = v['bg'];
+
+bg = bg.substring(bg.indexOf('?')+1, bg.length);
+
+bg = bg.split(";");
 function getData(cb) {
     gameID = v['gameID'];
     if(gameID){
@@ -49,14 +54,6 @@ function drawBoard(state) {
     //bg is a string passed from user setting page, it is a string look like:
     // token-color; bg-color; size
 
-    var bg = v['bg'];
-
-    bg = bg.substring(bg.indexOf('?')+1, bg.length);
-
-    bg = bg.split(";");
-    console.log(bg);
-
-    console.log("Board Size: ", bg[1]);
     var size = bg[1];
     var unitSize;
     if(size <= 10){
@@ -107,7 +104,7 @@ function drawBoard(state) {
     // TODO : only thing need to be change when data refreshed from server.
     for(var i = 0; i < size; i++){
         for (var j = 0; j < size; j ++){
-            svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));
+            svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
             // if(state.board[i][j] == 0){
             //     svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(1, 1, 1, 1)'));//black
             // }else if(state.board[i][j] == 1){
@@ -119,18 +116,52 @@ function drawBoard(state) {
             // }
         }
     }
-
     canvas.append(svg);
+    gamePlay();
+}
+function gamePlay(){
+    $('circle').on('click', function () {
+        console.log(">>>>>>>>>>>");
+        console.log("Board Size: ", bg[1]);
+        var size = bg[1];
+        var unitSize;
+        if(size <= 10){
+            unitSize = 105.55555;
+        }else if(size > 10 && size <= 15){
+            unitSize = 73;
+        }else {
+            unitSize = 50;
+        }
+        var CoorX = ($(this)[0].attributes.cx.nodeValue - unitSize)/unitSize;
+        var CoorY = ($(this)[0].attributes.cy.nodeValue - unitSize)/unitSize;
+        if(CoorX > 2 && CoorX < 3){
+            CoorX = 2;
+        }
+        if(CoorY > 2 && CoorY < 3){
+            CoorY = 2;
+        }
+        console.log(CoorX, CoorY);
+
+    });
+    $('#canvas-board').on('mouseover', function () {
+        // location.href = "./img/black.ani";
+        // $(this)[0].style.cursor = url('./img/black.ani');
+        // $(this)[0].css({cursor: "help"});
+    });
+
+
+}
+function passToken() {
+    $('#pass').on = ('click', function () {
+        console.log(">>>>>>>>>>>>>");
+    });
 }
 function init() {
     console.log("Initalizing Page...");
     // TODO: request data from server
     getData(drawBoard);
-    
-    // $('#start-button').on = ('click', function () {
-    //     console.log(">>>>>>>>>>>>>");
-    //     // getData(drawBoard);
-    // });
+    //gamePlay func can return the position of circle.
+
 
 
 
