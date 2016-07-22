@@ -7,6 +7,10 @@
 /**
  * Requests a new board state from the server's /data route.
  */
+
+//board size, in pixels
+const BOARD_SIZE = 500;
+
 function getData(){
 
     gameID = window.location.href.split("?gameID=")[1];
@@ -27,63 +31,57 @@ function getData(){
 }
 /**
  * Draws the board to the #canvas element on the page.
- * @param state {object} - an object representing the state of the board.
+ * @param state {object} - a 2-D array representing the state of the board
+ *      - 0 represents an empty square
+ *      - 1 represents a BLACK army on the square
+ *      - 2 represents a WHITE army on the square
  */
 function drawBoard(state){
     // everything else should adapt to an adjustable
     // height and width.
-    console.log("Board Size: ", state.size);
-    var unitSize;
-    if(state.size <= 10){
-        unitSize = 100;
-    }else if(state.size > 10 && state.size <= 15){
-        unitSize = 70;
-    }else {
-        unitSize = 50;
-    }
+    console.log("Board Size: ", state.length);
+    var numSquares = state.length;
+
     var canvas = $("#canvas-board");
-    var W = state.size * unitSize + unitSize, H = state.size * unitSize + unitSize;
-    canvas.css("height", H );
-    canvas.css("width", W );
+    canvas.css("height", BOARD_SIZE );
+    canvas.css("width", BOARD_SIZE );
 
     // Change the height and width of the board here...
     // The actual SVG element to add to.
     // we make a jQuery object out of this, so that
     // we can manipulate it via calls to the jQuery API.
-    var svg = $(makeSVG(W, H));
-    var i, j;
+    var svg = $(makeSVG(BOARD_SIZE, BOARD_SIZE));
+    var squareSize = BOARD_SIZE/numSquares;
     var temp = 0;
 
     //draw every unit rectangle
-    for(i = 0; i <= W; i+=unitSize){
-        for(j = 0; j <= H; j+=unitSize ){
-            //if-else comment: make the color different in the different unit.
-            if((i/unitSize)%2 == 0 && (j/unitSize)%2 == 0 || (i/unitSize)%2 == 1 && (j/unitSize)%2 == 1){
-                svg.append($(makeRectangle(i, j, unitSize, unitSize, 'burlywood')));
-            }else {
-                svg.append($(makeRectangle(i, j, unitSize, unitSize, 'darkkhaki')));
-            }
+    for (var y = 0; y < BOARD_SIZE; y += squareSize) {
+        for (var x = 0; x < BOARD_SIZE; x += squareSize) {
+            svg.append(makeRectangle(x, y, squareSize, squareSize, "#B8BDBD"));
         }
     }
 
-    for(var k = unitSize; k < W; k+=unitSize){
-        svg.append(makeLine(k, 1, k, W-1));
+    //draw lines
+    for (var i = 0; i < BOARD_SIZE; i += squareSize) {
+        //vertical line
+        svg.append(makeLine(i, 0, i, BOARD_SIZE, "#000000"));
+        //horizontal line
+        svg.append(makeLine(0, i, BOARD_SIZE, i, "#000000"));
     }
 
-    for(var a = unitSize; a < H; a+=unitSize){
-        svg.append(makeLine(1, a, H-1, a));
-    }
+    // draw armies on the board
+    for (var x1 = 0; x1 < state.length; x1++) {
+        for (var y1 = 0; y1 < state.length; y1++) {
 
-    // append the svg object to the canvas object.
-    var board = state.board[0];
-
-    for(var i = 0; i < state.size; i++){
-        for (var j = 0; j < state.size; j ++){
-            if(state.board[i][j] == 1){
-                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'balck'));
-            }else if(state.board[i][j] == 2){
-                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'white'));
+            // black armies
+            if (state[y1][x1] == 1) {
+                svg.append(makeCircle(x1 * squareSize, y1 * squareSize, squareSize, "#000000"));
             }
+            //white armies
+            else if (state[y1][x1] == 2) {
+                svg.append(makeCircle(x1 * squareSize, y1 * squareSize, squareSize, "#FFFFFF"));
+            }
+
         }
     }
 
