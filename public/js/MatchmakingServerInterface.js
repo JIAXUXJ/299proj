@@ -12,8 +12,9 @@ const SIZE_SELECTOR_ID = 'size';
 function startHotSeat() {
 
     // get board size
-    var boardSize = $(SIZE_SELECTOR_ID).val();
-
+    //var boardSize = $(SIZE_SELECTOR_ID).val();
+	var boardSize = 9;
+	
     $.post(
         "match/startHotSeat",
         {
@@ -22,7 +23,8 @@ function startHotSeat() {
         function(data, textStatus) {
             if (data) {
                 console.log(data);
-                window.location.href = '/game/' + data;
+                window.location.href = '/startPlay.html?gameID=' + data;
+                getData();
             }
             else if (textStatus !== 'success') {
                 alert("Failed to access server.");
