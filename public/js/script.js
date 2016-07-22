@@ -11,6 +11,9 @@
 //board size, in pixels
 const BOARD_SIZE = 500;
 
+//board state
+var boardState = null;
+
 function getData(){
 
     gameID = window.location.href.split("?gameID=")[1];
@@ -26,7 +29,8 @@ function getData(){
         //respond to game board updates?
 
         // draw initial board state
-        drawBoard(data.Board);
+        boardState = data.Board;
+        drawBoard(boardState);
     });
 }
 /**
@@ -94,7 +98,7 @@ function init(){
     getData(drawBoard);
 
     //register board click event
-    $('circle').on('click', function () {
+    $('#canvas-board').on('click', function () {
         // var bg = window.location.search;
         //
         // bg = bg.substring(bg.indexOf('?')+1, bg.length);
