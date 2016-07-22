@@ -39,6 +39,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	window.gameID = window.location.href.split("?gameID=")[1];
+	window.Turn;
 	if(gameID){
 		$("#start").attr("id", "resign").text("Resign");
 	}
@@ -70,6 +71,12 @@ $(document).ready(function(){
 	$("#pass").click(function(){
 		$("#result").text("pass");
 	});
+	// Jia's gamePlay() function
+    $('#canvas-board').on('mouseover', function () {
+        // location.href = "./img/black.ani";
+        // $(this)[0].style.cursor = url('./img/black.ani');
+        // $(this)[0].css({cursor: "help"});
+    });
 });
 
 function pollData(){
@@ -80,20 +87,20 @@ function pollData(){
 			success: function(data){
 				//$("#result").text(JSON.stringify(data));
 				drawBoard(data);
+				window.Turn = data.Turn;
+				console.log(window.Turn);
 				pollData();
 			},
 			dataType: "json"});
 		}
-	}, 4000);
+	}, 2000);
 }
 
 function drawBoard(state){
     // everything else should adapt to an adjustable
     // height and width.
-    console.log("Board Size: ", state.BoardSize);
     var canvasSize = $(".fc-b").height();
     var unitSize = (canvasSize / state.BoardSize) * 0.75;
-    console.log(unitSize);
     /*
     if(state.BoardSize <= 10){
         unitSize = 100;
@@ -150,6 +157,35 @@ function drawBoard(state){
     }
 	canvas.empty();
     canvas.append(svg);
+    $("circle").click(function () {
+        console.log(">>>>>>>>>>>");
+        console.log("Board Size: 9");
+        var size = 9;
+    	var canvasSize = $(".fc-b").height();
+   		var unitSize = (canvasSize / state.BoardSize) * 0.75;
+        var CoorX = ($(this)[0].attributes.cx.nodeValue - unitSize)/unitSize;
+        var CoorY = ($(this)[0].attributes.cy.nodeValue - unitSize)/unitSize;
+        if(CoorX > 2 && CoorX < 3){
+            CoorX = 2;
+        }
+        if(CoorY > 2 && CoorY < 3){
+            CoorY = 2;
+        }
+        console.log(CoorX, CoorY);
+        $.post(
+        	"/game/" + gameID,
+        	{
+        		"game":gameID,
+        		"pass":false,
+        		"CoordX":CoorX,
+        		"CoordY":CoorY,
+        		"Turn":window.Turn
+        	},
+        	function(data){
+        		console.log(JSON.stringify(data));
+        	}
+        );
+    });
 }
 
 pollData();
