@@ -21,6 +21,9 @@ _staticdir = 'public';
 // Security measure
 app.disable('x-powered-by');
 
+//initialize Socket.io
+socketIO.init(app.server);
+
 // Package middleware
 app.use(bodyparser.urlencoded({extended: false }));
 app.use(bodyparser.json());
@@ -28,9 +31,6 @@ app.use(bodyparser.json());
 // Application middleware
 app.use(sessionManager);
 app.use(express.static(_staticdir));
-
-//initialize Socket.io
-socketIO.init(app.server);
 
 /***** ROUTES *****/
 

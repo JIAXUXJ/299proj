@@ -17,9 +17,10 @@ function startHotSeat() {
     $.post(
         "match/startHotSeat",
         {
-            boardSize: boardSize
+            "boardSize": boardSize
         },
         function(data, textStatus) {
+        	console.log(JSON.stringify(data));
             if (data.redirect) {
                 window.location.href = data.redirect;
             }
