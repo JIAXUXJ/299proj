@@ -4,7 +4,7 @@
 function gamePlay(){
     $('#canvas-board').on('mouseover', function () {
         // location.href = "./img/black.ani";
-        $(this)[0].style.cursor = url('./img/black.ani');
+        // $(this)[0].style.cursor = url('./img/black.ani');
         // $(this)[0].css({cursor: "help"});
     });
 
