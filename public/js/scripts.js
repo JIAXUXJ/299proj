@@ -58,9 +58,9 @@ function drawBoard(state) {
     var size = bg[1];
     var unitSize;
     if(size <= 10){
-        unitSize = 63.33;//105.55555
+        unitSize = 64;//105.55555
     }else if(size > 10 && size <= 15){
-        unitSize = 43.8;//73
+        unitSize = 44;//73
     }else {
         unitSize = 30;//50 origin
     }
@@ -126,11 +126,11 @@ function gamePlay(){
         var size = bg[1];
         var unitSize;
         if(size <= 10){
-            unitSize = 105.55555;
+            unitSize = 64;//105.55555
         }else if(size > 10 && size <= 15){
-            unitSize = 73;
+            unitSize = 44;//73
         }else {
-            unitSize = 50;
+            unitSize = 30;//50 origin
         }
         var CoorX = ($(this)[0].attributes.cx.nodeValue - unitSize)/unitSize;
         var CoorY = ($(this)[0].attributes.cy.nodeValue - unitSize)/unitSize;
