@@ -93,11 +93,11 @@ function drawBoard(state) {
             }
         }
     }
-    
+
     for(var k = unitSize; k < W; k+=unitSize){
         svg.append(makeLine(k, 1, k, W-1));
     }
-    
+
     for(var a = unitSize; a < H; a+=unitSize){
         svg.append(makeLine(1, a, H-1, a));
     }
@@ -145,19 +145,25 @@ function gamePlay(){
         //TODO: I'm note faimiliar with server code, so I don't know how to send data to server here
         //TODO: all things should be write below here, donot change any other JS code in this file.
 
-        $.post("/game/" + gameID,{
-            Pass: false,
-            CoordX: CoorX,
-            CoordY: CoorY
-        },function (data, textStatus){
-            if (data) {
-                drawBoard(data);
+        $.post(
+            "/game/" + gameID,
+            {
+                "game": gameID,
+                "Pass": false,
+                "CoordX": CoorX,
+                "CoordY": CoorY,
+                "Turn" : window.Turn
+            },function (data, textStatus){
+                if (data) {
+                    console.log(JSON.stringify(data));
+                    drawBoard(data);
+                }
+                if (textStatus !== 'success') {
+                    alert("Failed to send move to server");
+                    console.log("Move failed. Status: " + textStatus);
+                }
             }
-            if (textStatus !== 'success') {
-                alert("Failed to send move to server");
-                console.log("Move failed. Status: " + textStatus);
-            }
-        });
+        );
 
 
     });
