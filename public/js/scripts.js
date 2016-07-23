@@ -58,11 +58,11 @@ function drawBoard(state) {
     var size = bg[1];
     var unitSize;
     if(size <= 10){
-        unitSize = 105.55555;
+        unitSize = 63.33;//105.55555
     }else if(size > 10 && size <= 15){
-        unitSize = 73;
+        unitSize = 43.8;//73
     }else {
-        unitSize = 50;
+        unitSize = 30;//50 origin
     }
     var canvas = $('#canvas-board');
     var W = size * unitSize+ unitSize, H = size * unitSize+ unitSize;
