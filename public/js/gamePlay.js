@@ -7,7 +7,7 @@ var params = null;
 var gameID = null;
 var boardSize = null;
 var mode = null;
-var turn = null;
+var turn = 'Black';
 
 /**
  * Requests a new board state from the server's /data route.
@@ -144,6 +144,7 @@ function drawBoard(state) {
             }
         }
     }
+	// Big fan of this next line - hot take to do it all at once - Tharnadek
     canvas.empty().append(svg);
     gamePlay();
 }
@@ -153,8 +154,8 @@ function drawBoard(state) {
  */
 function gamePlay(){
     $('circle').on('click', function () {
-        console.log("Board Size: ", bg[1]);
-        var size = bg[1];
+        console.log("Board Size: ", boardSize);
+        var size = boardSize;
         var unitSize;
         if(size <= 10){
             unitSize = 64;//105.55555
@@ -165,12 +166,8 @@ function gamePlay(){
         }
         var CoorX = ($(this)[0].attributes.cx.nodeValue - unitSize)/unitSize;
         var CoorY = ($(this)[0].attributes.cy.nodeValue - unitSize)/unitSize;
-        if(CoorX > 2 && CoorX < 3){
-            CoorX = 2;
-        }
-        if(CoorY > 2 && CoorY < 3){
-            CoorY = 2;
-        }
+        CoorX = Math.round(CoorX);
+		CoorY = Math.round(CoorY);
         console.log("Making move: (" + CoorX + ", " + CoorY + ")");
         // TODO write sth here: to check if it is a valid move, if yes, user can place token here.
         //TODO: I'm note faimiliar with server code, so I don't know how to send data to server here
@@ -180,10 +177,10 @@ function gamePlay(){
             "/game/" + gameID,
             {
                 "game": gameID,
-                "Pass": false,
                 "CoordX": CoorX,
                 "CoordY": CoorY,
-                "Turn" : turn
+				"Pass": false,
+                "Player" : turn
             },function (data, textStatus){
                 if (textStatus !== 'success') {
                     alert("Failed to send move to server");
