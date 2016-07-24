@@ -23,7 +23,7 @@ function startHotSeat() {
         function(data, textStatus) {
             if (data) {
                 console.log(data);
-                window.location.href = '/startPlay.html?gameID=' + data;
+                window.location.href = '/gamePlay.html?gameID=' + data;
                 getData();
             }
             else if (textStatus !== 'success') {

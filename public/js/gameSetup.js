@@ -2,9 +2,9 @@
 // var serverInterface = new ServerInterface("localhost", 3000);
  
  /*
-  * getBgData() get the user settings for board from webpage.
+  * Add event handlers for buttons.
   */
- function getBgData() {
+ function init() {
      //judge which setting page user in currently, we have 3 setting pages in total: local, AI, Networking
      var title = $(document).attr("title");	
 	
@@ -37,4 +37,4 @@
      });
  
  }
-getBgData(); 
+init();
