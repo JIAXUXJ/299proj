@@ -5,8 +5,13 @@ JSON object gameObject has schema:
   "TimeEnd": ISO DateTimeObject,
   "BoardSize": int,
   "moves": [JSON:moveObject],
-  "PWhiteId": string:express-session sessionID,
-  "PBlackId": string:express-session sessionID,
-  "State": string: one of {'ACTIVE','DONE'}
+  "PWhiteID": string:express-session sessionID,
+  "PBlackID": string:express-session sessionID,
+  "whitePlayer": string: one of {userObject.UserName, "Anon"},
+	"blackPlayer": string: one of {userObject.UserName, "Anon"},
+	"WhiteCaptures": int,
+	"BlackCaptures": int,
+  "State": string: one of {'ACTIVE','DONE'},
+	"Turn": string: one of {'Black', 'White'}',
 }
 
