@@ -96,7 +96,6 @@ function drawBoard(state) {
                 svg.append($(makeRectangle(i, j, unitSize, unitSize, '#00FF00')));
             }
             isOdd = !isOdd;
-            console.log(isOdd);
         }
     }
 
