@@ -15,8 +15,7 @@ var mode = null;
  *        GET request.
  */
 function getData(cb) {
-    console.log(v);
-    gameID = v['gameID'];
+    console.log("GameID: " + gameID);
     if(gameID){
         $.ajax({
             url: "/game/"+gameID,
@@ -67,25 +66,15 @@ function drawBoard(state) {
     //bg is a string passed from user setting page, it is a string look like:
     // token-color; bg-color; size
 
-    var size = bg[1];
-    var unitSize;
-    if(size <= 10){
-        unitSize = 64;//105.55555
-    }else if(size > 10 && size <= 15){
-        unitSize = 44;//73
-    }else {
-        unitSize = 30;//50 origin
-    }
     var canvas = $('#canvas-board');
-    var W = size * unitSize+ unitSize, H = size * unitSize+ unitSize;
-    canvas.css("height", H );
-    canvas.css("width", W );
+    var squareSize = 500;
+    var offset = Math.floor((squareSize % boardSize) / 2);
+    var unitSize = Math.floor(squareSize / boardSize);
 
-    var svg = $(makeSVG(W, H));
+    var svg = $(makeSVG(squareSize, squareSize));
 
-    var i, j;
-    svg.append($(makeRectangle(10, 10, unitSize, unitSize, 'burlywood')));
-
+    /* BOARD COLORS */
+    /*
     var bgcolor1, bgcolor2;
     if(bg.length === 4){
         bgcolor1 = bg[2];
@@ -94,30 +83,35 @@ function drawBoard(state) {
     }else {
         bgcolor1 = bgcolor2 = bg[2];
     }
+    */
+
     //draw every unit rectangle
-    for(i = 0; i <= W; i+=unitSize){
-        for(j = 0; j <= H; j+=unitSize ){
+    var isOdd = false;
+    for(i = offset; i < squareSize - offset*2; i+=unitSize){
+        for(j = offset; j < squareSize - offset*2; j+=unitSize ){
             //if-else comment: make the color different in the different unit.
-            if((i/unitSize)%2 == 0 && (j/unitSize)%2 == 0 || (i/unitSize)%2 == 1 && (j/unitSize)%2 == 1){
-                svg.append($(makeRectangle(i, j, unitSize, unitSize, bgcolor1)));
+            if(isOdd){
+                svg.append($(makeRectangle(i, j, unitSize, unitSize, '#FF0000')));
             }else {
-                svg.append($(makeRectangle(i, j, unitSize, unitSize, bgcolor2)));
+                svg.append($(makeRectangle(i, j, unitSize, unitSize, '#00FF00')));
             }
+            isOdd = !isOdd;
+            console.log(isOdd);
         }
     }
 
-    for(var k = unitSize; k < W; k+=unitSize){
-        svg.append(makeLine(k, 1, k, W-1));
+    for(var k = unitSize + offset; k < squareSize; k+=unitSize){
+        svg.append(makeLine(k, 0, k, squareSize));
     }
 
-    for(var a = unitSize; a < H; a+=unitSize){
-        svg.append(makeLine(1, a, H-1, a));
+    for(var a = unitSize + offset; a < squareSize; a+=unitSize){
+        svg.append(makeLine(0, a, squareSize, a));
     }
 
     // TODO : only thing need to be change when data refreshed from server.
     var board = state.Board[0];
-    for(var i = 0; i < size; i++){
-        for (var j = 0; j < size; j ++){
+    for(var i = 0; i < boardSize; i++){
+        for (var j = 0; j < boardSize; j ++){
             // svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
             if(state.Board[i][j] == 'BLACK'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(1, 1, 1, 1)'));//black
@@ -128,7 +122,7 @@ function drawBoard(state) {
             }
         }
     }
-    canvas.append(svg);
+    canvas.empty().append(svg);
     gamePlay();
 }
 
@@ -211,4 +205,5 @@ function init() {
 
 
 }
+
 init();
