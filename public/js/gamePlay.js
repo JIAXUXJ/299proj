@@ -176,7 +176,7 @@ function gamePlay(){
         $.post(
             "/game/" + gameID,
             {
-                "game": gameID,
+                "Game": gameID,
                 "CoordX": CoorX,
                 "CoordY": CoorY,
 				"Pass": 'false',
