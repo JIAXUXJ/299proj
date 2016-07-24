@@ -7,6 +7,7 @@ var params = null;
 var gameID = null;
 var boardSize = null;
 var mode = null;
+var turn = null;
 
 /**
  * Requests a new board state from the server's /data route.
@@ -38,6 +39,29 @@ function getData(cb) {
     // });
 }
 
+/**
+ * Updates the board, capture count and turn on the screen according to
+ * data returned from the server.
+ *
+ * @param data {Object} Data returned from a GET request to the server on
+ *                      /game/:gid
+ */
+function updateGame(data) {
+
+    // update the board state
+    drawBoard(data.Board);
+
+    // update capture count
+    $("#p1-captures").empty().html(data.BlackCaptures);
+    $("#p2-captures").empty().html(data.WhiteCaptures);
+
+    // update turn
+    turn = data.Turn;
+    $("#p1-pass").css("visibility", turn == "Black" ? "visible" : "hidden");
+    $("#p2-pass").css("visibility", turn == "White" ? "visible" : "hidden");
+    alert("It's " + data.Turn + "'s turn!");
+}
+
 /*
  * Parses the URL's parameters and returns them as a set of
  * key/value pairs.
@@ -60,7 +84,7 @@ function parseUrl() {
 
 /*
  * Draws the board given a certain board state.
- * @param state {Object} Data representing the state of the board.
+ * @param state {int[][]} 2-D array representing the state of the board
  */
 function drawBoard(state) {
     //bg is a string passed from user setting page, it is a string look like:
@@ -107,14 +131,13 @@ function drawBoard(state) {
         svg.append(makeLine(0, a, squareSize, a));
     }
 
-    // TODO : only thing need to be change when data refreshed from server.
-    var board = state.Board[0];
+    // TODO : only thing need to be change when data refreshed from server
     for(var i = 0; i < boardSize; i++){
         for (var j = 0; j < boardSize; j ++){
             // svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
-            if(state.Board[i][j] == 'BLACK'){
+            if(state[i][j] == 'BLACK'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(1, 1, 1, 1)'));//black
-            }else if(state.Board[i][j] == 'WHITE'){
+            }else if(state[i][j] == 'WHITE'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));//white
             }else{
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
@@ -160,12 +183,8 @@ function gamePlay(){
                 "Pass": false,
                 "CoordX": CoorX,
                 "CoordY": CoorY,
-                "Turn" : window.Turn
+                "Turn" : turn
             },function (data, textStatus){
-                if (data) {
-                    console.log(JSON.stringify(data));
-                    drawBoard(data);
-                }
                 if (textStatus !== 'success') {
                     alert("Failed to send move to server");
                     console.log("Move failed. Status: " + textStatus);
@@ -184,8 +203,22 @@ function gamePlay(){
 
 }
 function passToken() {
-    $('#pass').on = ('click', function () {
-        console.log(">>>>>>>>>>>>>");
+    $(".pass-button").click(function() {
+
+        $.post(
+            "/game/" + gameID,
+            {
+                "game": gameID,
+                "Pass": true,
+                "Turn": turn
+            }, function(data, textStatus) {
+                if (textStatus !== 'success') {
+                    alert('Failed to send move to server.');
+                    console.log("Move failed. Status: " + textStatus);
+                }
+            }
+        );
+
     });
 }
 function init() {
@@ -198,8 +231,12 @@ function init() {
     boardSize = params.size;
     mode = params.mode;
 
-    // TODO: request data from server
-    getData(drawBoard);
+    // init event handlers
+    gamePlay();
+    passToken();
+
+    // get initial board state
+    getData(updateGame);
     //gamePlay func can return the position of circle.
 
 
