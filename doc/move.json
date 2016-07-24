@@ -3,7 +3,7 @@ JSON object moveObject has schema:
 	"Game": string:gameObject._id,
   "CoordX": int,
   "CoordY": int,
-  "Pass": bool:one of {true, false},
+  "Pass": string:one of {'true','false'},
   "Player": string:one of {'Black','White','Controller'},
 }
 
