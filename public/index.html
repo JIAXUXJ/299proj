@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
 <meta type-equiv="Content-Type" content="text/html; charset=utf-8">
-<head>
-    <title>GO ONLINE</title>
 
+<head>
+    <title>SENG 299 Go</title>
 
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	
-	<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/modal.css" rel="stylesheet">
-    <!--<link rel="stylesheet" type="text/css" href="css/gameSetting.css">-->
 </head>
+
 <body>
 	<nav class="navbar navbar-inverse navbar-static-top">
 		<div class="container">
@@ -25,7 +23,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">SENG 299 Go</a>
+				<a class="navbar-brand" href="index.html">SENG 299 Go</a>
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right">
@@ -44,79 +42,46 @@
 			  <form>
 				<input type="text" name="userName" placeholder="Username">
 				<input type="password" name="pw" placeholder="Password">
-				<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				<input type="submit" name="login" class="login btn btn-success btn-lg" value="Login">
 			  </form>		
 			  <form>
 				<input type="text" name="userName" placeholder="Username">
 				<input type="password" name="pw" placeholder="Password">
-				<input type="password" name="re_pw" placeholder="Password">
-				<input type="submit" name="login" class="login loginmodal-submit" value="Register">
+				<input type="password" name="re_pw" placeholder="Re-Type Password">
+				<input type="submit" name="login" class="register btn btn-danger btn-lg" value="Register">
 			  </form>
 			</div>
 		</div>
 	  </div>
-		  
-		  
-	<div class="row">
+	  
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Ready to play?</h1>
+			<p>Test yourself against the AI, or take turns in the Hot Seat!</p>
+			<br>
 
-    </div>
-	
+			<p><a href="playGameLocal.html" class="btn btn-lg btn-primary" role = "button">Play »</a></p>
+		
+		
+		</div>
+	</div>
+	  
+	<div class="container">	  
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Leaderboard</h2>
+				<p> Put leaderboard here </p>
+			</div>
+			<div class="col-md-6">
+				<h2>Spectate</h2>
+				<p> Put list of games here </p>
+			</div>
+		</div>
+	</div>
 
-    <div class="top-nav">
-        <ul>
-            <li class="logo left"></li>
-            <li class="left here nav-on"><a href="#">Home</a></li>
-            <li class="left"><a href="rule.html">Rules</a></li>
-            <li class="left"><a href="team.html">Team</a></li>
-            <li class="left"><a href="playGameLocal.html">Play Game</a></li>
-
-            <!--<li class="right"><a href="#">sign up</a></li>-->
-            <div class="right sign-nav">
-                <form id="" class="">
-                    <input placeholder="User Name" type="text" name="userName">&nbsp;
-                    <input placeholder="Password" type="password" name="pw">
-                    <input placeholder="Re-type password" type="password" name="re_pw">
-                    <button style='background: url("img/signup-nav.png")'></button>
-                </form>
-            </div>
-            <div class="right sign-nav">
-                <form id="" class="">
-                    <input placeholder="User Name" type="text" name="userName">&nbsp;
-                    <input placeholder="Password" type="password" name="pw">
-                    <button style='background: url("img/signin-nav.png")'></button>
-                </form>
-            </div>
-        </ul>
-    </div>
-
-    <div class="left go-pic"></div>
-    <div class="spectate right ">
-        <div class="spec-home">
-            <!--<form id="" class="">-->
-                <!--<input placeholder="Please enter the game id" type="text" name="gameId">&nbsp;-->
-                <!--<button class="spec-button">Invite</button>-->
-            <!--</form>-->
-            <div id="spec-home">
-                Spectate:
-                <table>
-                    <thead>
-                    <tr><th>Game Id</th><th>Score</th><th>Play With</th></tr>
-                    </thead>
-                    <tbody>
-                    <tr><td>1111</td><td>--</td><td>--</td></tr>
-                    <tr><td>2222</td><td>--</td><td>--</td></tr>
-                    <tr><td>3333</td><td>--</td><td>--</td></tr>
-                    <tr><td>4444</td><td>--</td><td>--</td></tr>
-                    <tr><td>5555</td><td>--</td><td>--</td></tr>
-                    <tr><td>6666</td><td>--</td><td>--</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
 </body>
-	<script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
-	<!-- <script type="text/javascript" src="js/style.js"></script> -->
-	<script src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
 </html>
