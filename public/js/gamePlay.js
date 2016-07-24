@@ -140,7 +140,7 @@ function drawBoard(state) {
             }else if(state[i][j] == 'WHITE'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));//white
             }else{
-                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
+                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));// invisible ink
             }
         }
     }
@@ -179,7 +179,7 @@ function gamePlay(){
                 "game": gameID,
                 "CoordX": CoorX,
                 "CoordY": CoorY,
-				"Pass": false,
+				"Pass": 'false',
                 "Player" : turn
             },function (data, textStatus){
                 if (textStatus !== 'success') {
@@ -206,7 +206,7 @@ function passToken() {
             "/game/" + gameID,
             {
                 "game": gameID,
-                "Pass": true,
+                "Pass": 'true',
                 "Turn": turn
             }, function(data, textStatus) {
                 if (textStatus !== 'success') {
