@@ -1,8 +1,9 @@
+JSON object moveObject has schema:
 {
-  "game": uuid,
+	"Game": string:gameObject._id,
   "CoordX": int,
   "CoordY": int,
-  "pass": string,
-  "player": string (black/white/controller)
+  "Pass": bool:one of {true, false},
+  "Player": string:one of {'Black','White','Controller'},
 }
 

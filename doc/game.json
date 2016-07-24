@@ -1,11 +1,12 @@
+JSON object gameObject has schema:
 {
-  "gameID": "",
-  "TimeStart": "",
-  "TimeEnd": "",
-  "BoardSize": "",
-  "moves": [],
-  "PWhiteId": "",
-  "PBlackId": "",
-  "State": "",
+  "_id": string:uuid,
+  "TimeStart": ISO DateTimeObject,
+  "TimeEnd": ISO DateTimeObject,
+  "BoardSize": int,
+  "moves": [JSON:moveObject],
+  "PWhiteId": string:express-session sessionID,
+  "PBlackId": string:express-session sessionID,
+  "State": string: one of {'ACTIVE','DONE'}
 }
 
