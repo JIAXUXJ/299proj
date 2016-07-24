@@ -3,6 +3,7 @@
 var express        = require('express');
 var bodyparser     = require('body-parser');
 var http           = require('http');
+var iolib          = require('socket.io');
 
 var sessionManager = require('./lib/session/SessionManager.js');
 var auth           = require('./lib/auth/auth.js');
@@ -13,22 +14,26 @@ var user           = require('./lib/other/userRouter.js');
 var game           = require('./lib/game/gameRouter.js');
 var review         = require('./lib/other/reviewRouter.js');
 
-var app = express();
-var server = http.Server(app);
-var io = require('socket.io')(server);
+var app            = express();
+var server         = http.Server(app);
+var io          	 = iolib(server);
 
 _staticdir = 'public';
 
 // Security measure
 app.disable('x-powered-by');
 
-//initialize Socket.io
+//initialize Socket.io - cannot put this in a separate file!
 io.on('connection', function(socket){
-	io.emit('status', {'connected':'true'});
-	logger.info('IO: got a socket: '+socket.id);
-	io.on('observe', function(data){
-		logger.info('IO: got an observe event: ' + data);
-		socket.join(data.gid);
+	socket.on('observe', function(data){
+		logger.debug('Spectator registering to game ' + data.gid);
+		socket.join(data.gid, function(err){
+			if(err){
+				logger.debug(err);
+			} else {
+				console.log(socket.rooms);
+			}
+		});	
 	});
 });
 

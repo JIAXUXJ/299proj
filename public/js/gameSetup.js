@@ -1,8 +1,8 @@
 //created by Jia at 7-20, get the user settings input
 // var serverInterface = new ServerInterface("localhost", 3000);
  
-var socket = io.connect('http://localhost:30052'); 
-console.log('IO: socket.id: '+socket.io);
+//var socket = io.connect('http://localhost:30052'); 
+//console.log('IO: socket.id: '+socket.io);
  
  /*
   * Add event handlers for buttons.

@@ -9,7 +9,6 @@ var boardSize = null;
 var mode = null;
 var turn = 'Black';
 var socket = io.connect('http://localhost:30052');
-console.log('IO: socket.id: '+socket);
 
 /**
  * Requests a new board state from the server's /data route.
@@ -24,8 +23,8 @@ function getData(cb) {
             url: "/game/"+gameID,
             success: function(data){
                 //$("#result").text(JSON.stringify(data));
-                socket.emit('observe', {'gid': data});
-                //console.log(data);
+               	console.log('emitting observe event for gid '+gameID);
+								socket.emit('observe', {'gid': gameID});
                 cb(data);
             },
             dataType: "json"});
@@ -62,7 +61,7 @@ function updateGame(data) {
     turn = data.Turn;
     $("#p1-pass").css("visibility", turn == "Black" ? "visible" : "hidden");
     $("#p2-pass").css("visibility", turn == "White" ? "visible" : "hidden");
-    alert("It's " + data.Turn + "'s turn!");
+    //alert("It's " + data.Turn + "'s turn!");
 }
 
 /*
@@ -241,3 +240,8 @@ function init() {
 }
 
 init();
+
+socket.on('observe-prompt', function(data){
+	console.log('emitting observe event for gid '+data);
+	socket.emit('observe', {'gid': data});
+});
