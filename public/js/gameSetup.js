@@ -29,10 +29,27 @@
 		else if($("#optionsSize19").is(":checked")){
 			size = 19;
 		}
-			console.log(size, gameMode)
-             var bg = size+";"+gameMode;
-             //direct to the startPlay page and passing bg string to that page.
-             location.href = "./gamePlay.html?"+bg;
+
+		console.log(size, gameMode);
+        var bg = "size=" + size+ ";" + "mode=" + gameMode;
+
+
+        $.post(
+         "match/startHotSeat",
+         {
+             "boardSize": size
+         },
+         function(data, textStatus) {
+             if (data) {
+                 console.log(data);
+                 window.location.href = '/gamePlay.html?gameID=' + data + ";" + bg;
+                 getData();
+             }
+             else if (textStatus !== 'success') {
+                 alert("Failed to access server.");
+             }
+         }
+        );
  
      });
  
