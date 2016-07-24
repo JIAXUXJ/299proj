@@ -31,7 +31,7 @@
 		}
 
 		console.log(size, gameMode);
-        var bg = "size=" + size+ ";" + "mode=" + gameMode;
+        var bg = "size=" + size+ "&" + "mode=" + gameMode;
 
 
         $.post(
@@ -42,7 +42,7 @@
          function(data, textStatus) {
              if (data) {
                  console.log(data);
-                 window.location.href = '/gamePlay.html?gameID=' + data + ";" + bg;
+                 window.location.href = '/gamePlay.html?gameID=' + data + "&" + bg;
                  getData();
              }
              else if (textStatus !== 'success') {

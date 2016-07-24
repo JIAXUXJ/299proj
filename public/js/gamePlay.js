@@ -1,19 +1,21 @@
 /**
  * Created by Joye on 2016-07-20.
  */
+
+// globals
+var params = null;
+var gameID = null;
+var boardSize = null;
+var mode = null;
+
 /**
  * Requests a new board state from the server's /data route.
  * @param cb {function} callback to call when the request comes back from the server.
+ *      - Takes a "data" parameter, which will be passed the information from the
+ *        GET request.
  */
-var v = parseUrl();
-console.log('v["gameID"]: ', v['gameID']);
-var bg = v['bg'];
-var gameID = v['gameID'];
-
-bg = bg.substring(bg.indexOf('?')+1, bg.length);
-
-bg = bg.split(";");
 function getData(cb) {
+    console.log(v);
     gameID = v['gameID'];
     if(gameID){
         $.ajax({
@@ -36,6 +38,11 @@ function getData(cb) {
     //
     // });
 }
+
+/*
+ * Parses the URL's parameters and returns them as a set of
+ * key/value pairs.
+ */
 function parseUrl() {
     var url = location.href;
     var k = url.indexOf('?');
@@ -51,6 +58,11 @@ function parseUrl() {
     }
     return arr2;
 }
+
+/*
+ * Draws the board given a certain board state.
+ * @param state {Object} Data representing the state of the board.
+ */
 function drawBoard(state) {
     //bg is a string passed from user setting page, it is a string look like:
     // token-color; bg-color; size
@@ -119,7 +131,10 @@ function drawBoard(state) {
     canvas.append(svg);
     gamePlay();
 }
-//when user click a circle.
+
+/*
+ * Adds a click event handler for the canvas.
+ */
 function gamePlay(){
     $('circle').on('click', function () {
         console.log("Board Size: ", bg[1]);
@@ -181,7 +196,15 @@ function passToken() {
     });
 }
 function init() {
+
     console.log("Initalizing Page...");
+
+    // parse url and get parameters
+    params = parseUrl();
+    gameID = params.gameID;
+    boardSize = params.size;
+    mode = params.mode;
+
     // TODO: request data from server
     getData(drawBoard);
     //gamePlay func can return the position of circle.
