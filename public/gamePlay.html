@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<meta type-equiv="Content-Type" content="text/html; charset=utf-8">
+
 <head>
     <title>Go</title>
 	
@@ -52,17 +52,36 @@
 		</div>
 	</div>
 	
-    <div class="left board try-board">
-        <div id="canvas-board" class="try-canvas">
-
-        </div>
-    </div>
+	<div class = "container">
+		<div = "row">
+		<button id="pass">Pass</button>
+		</div>
+		
+		<div = "row">	
+		
+			<div class = "col-sm-2">
+				<h3>player 1</h3>
+			</div>
+			
+			<div class="canvas col-xs-8">
+				<div class="board">
+					<div id="canvas-board">
+					</div>
+				</div>
+			</div>
+			
+			<div class = "col-sm-2">
+				<h3>player 2</h3>
+			</div>
+			
+		</div>
+	</div>
 </body>
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="js/svgFactory.js"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/gamePlay.js"></script>
 
 <script>
     init();
