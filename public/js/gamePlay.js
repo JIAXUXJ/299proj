@@ -117,12 +117,8 @@ function drawBoard(state) {
     for(i = offset; i < squareSize - offset*2; i+=unitSize){
         for(j = offset; j < squareSize - offset*2; j+=unitSize ){
             //if-else comment: make the color different in the different unit.
-            if(isOdd){
-                svg.append($(makeRectangle(i, j, unitSize, unitSize, '#FF0000')));
-            }else {
-                svg.append($(makeRectangle(i, j, unitSize, unitSize, '#00FF00')));
-            }
-            isOdd = !isOdd;
+                svg.append($(makeRectangle(i, j, unitSize, unitSize, 'slategrey')));
+
         }
     }
 
@@ -138,9 +134,9 @@ function drawBoard(state) {
     for(var i = 0; i < boardSize; i++){
         for (var j = 0; j < boardSize; j ++){
             // svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
-            if(state[i][j] == 'BLACK'){
+            if(state[i][j] == 'Black'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(1, 1, 1, 1)'));//black
-            }else if(state[i][j] == 'WHITE'){
+            }else if(state[i][j] == 'White'){
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));//white
             }else{
                 svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));// invisible ink
@@ -194,7 +190,7 @@ function gamePlay(){
                 }
             }
         );
-
+		getData(updateGame);
 
     });
 
@@ -221,7 +217,7 @@ function passToken() {
                 }
             }
         );
-
+		getData(updateGame);
     });
 }
 function init() {
