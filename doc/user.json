@@ -1,9 +1,10 @@
+JSON object userObject has schema:
 {
-  "userId": "",
-  "userName": "",
-  "pwHash": "",
-  "games": [],
-  "NumWins": "",
-  "NumLosses": ""
+  "_id": string:uuid,
+  "UserName": string,
+  "PwHash": string,
+  "Games": [string:gameObject._id],
+  "NumWins": int,
+  "NumLosses": int,
 }
 
