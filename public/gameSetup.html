@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<meta type-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<head>
+    <title>Set Up Game</title>
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/modal.css" rel="stylesheet">
+</head>
+
+<body>
+	<nav class="navbar navbar-inverse navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">SENG 299 Go</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="team.html">Team</a></li>
+					<li><a href="rule.html">Rules</a></li>
+					<li><button type="button" class="btn btn-default navbar-btn" href="#" data-toggle="modal" data-target="#login-modal">Sign in</button></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	
+	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="loginmodal-container">
+				<h1>Login or Register</h1><br>
+			  <form>
+				<input type="text" name="userName" placeholder="Username">
+				<input type="password" name="pw" placeholder="Password">
+				<input type="submit" name="login" class="login btn btn-success btn-lg" value="Login">
+			  </form>		
+			  <form>
+				<input type="text" name="userName" placeholder="Username">
+				<input type="password" name="pw" placeholder="Password">
+				<input type="password" name="re_pw" placeholder="Re-Type Password">
+				<input type="submit" name="login" class="register btn btn-danger btn-lg" value="Register">
+			  </form>
+			</div>
+		</div>
+	</div>
+	
+	<div class="page-header">
+		<div class="container">
+			<h1>Settings</h1>
+			<p>Configure your game, then press play to begin.</p>
+			<br>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class = "row">
+			<div class = "col-sm-4 col-md-4">
+				<h3>Opponent</h3>
+				
+				<p>Choose to play against another player online, an online AI, or a local game with a friend.</p>
+				
+				<div class="radio">
+				  <label>
+					<input type="radio" name="optionsOpponent" id="optionsOpponent1" value="option1" checked>
+					AI Opponent
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+					<input type="radio" name="optionsOpponent" id="optionsOpponent2" value="option2" >
+					Online Opponent
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+					<input type="radio" name="optionsOpponent" id="optionsOpponent3" value="option3" >
+					Hotseat Opponent
+				  </label>
+			  </div>			
+			</div>
+				
+			<div class = "col-sm-4 col-md-4">
+				<h3>Board</h3>
+				<p>Choose the number of intersections on the board.</p>
+				<div class="radio">
+				  <label>
+					<input type="radio" name="optionsSize" id="optionsSize9" value="9" checked>
+					9x9
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+					<input type="radio" name="optionsSize" id="optionsSize13" value="13" >
+					13x13
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+					<input type="radio" name="optionsSize" id="optionsSize19" value="19" >
+					19x19
+				  </label>
+			  </div>		
+				
+			</div>
+			
+			<div class = "col-sm-4 col-md-4">
+				<h3>Ready to play?</h3>
+				<p><a href="#play-button" id = "play-button" class="play-button btn btn-lg btn-primary" role = "button">Start Game »</a></p>
+			</div>
+				
+		</div>
+	</div>
+
+	  
+	  
+	  
+	  
+
+</body>
+
+<script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/gameSetup.js"></script>
+
+</html>
