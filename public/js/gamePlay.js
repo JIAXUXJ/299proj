@@ -8,6 +8,8 @@ var gameID = null;
 var boardSize = null;
 var mode = null;
 var turn = 'Black';
+var socket = io.connect('http://localhost:30052');
+console.log('IO: socket.id: '+socket);
 
 /**
  * Requests a new board state from the server's /data route.
@@ -22,7 +24,8 @@ function getData(cb) {
             url: "/game/"+gameID,
             success: function(data){
                 //$("#result").text(JSON.stringify(data));
-                console.log(data);
+                socket.emit('observe', {'gid': data});
+                //console.log(data);
                 cb(data);
             },
             dataType: "json"});
@@ -186,6 +189,9 @@ function gamePlay(){
                     alert("Failed to send move to server");
                     console.log("Move failed. Status: " + textStatus);
                 }
+                else {
+
+                }
             }
         );
 
@@ -235,7 +241,6 @@ function init() {
     // get initial board state
     getData(updateGame);
     //gamePlay func can return the position of circle.
-
 
 }
 

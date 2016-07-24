@@ -6,8 +6,6 @@ var http           = require('http');
 
 var sessionManager = require('./lib/session/SessionManager.js');
 var auth           = require('./lib/auth/auth.js');
-var socketIO       = require('./lib/util/io.js');
-var auth           = require('./lib/auth/auth.js');
 var serverConfig   = require('./config.js').server;
 var logger         = require('./lib/util/logger.js');
 var matchmaking    = require('./lib/matchmaking/MatchmakingRouter.js');
@@ -17,6 +15,7 @@ var review         = require('./lib/other/reviewRouter.js');
 
 var app = express();
 var server = http.Server(app);
+var io = require('socket.io')(server);
 
 _staticdir = 'public';
 
@@ -24,7 +23,14 @@ _staticdir = 'public';
 app.disable('x-powered-by');
 
 //initialize Socket.io
-socketIO.init(server);
+io.on('connection', function(socket){
+	io.emit('status', {'connected':'true'});
+	logger.info('IO: got a socket: '+socket.id);
+	io.on('observe', function(data){
+		logger.info('IO: got an observe event: ' + data);
+		socket.join(data.gid);
+	});
+});
 
 // Package middleware
 app.use(bodyparser.urlencoded({extended: false }));
