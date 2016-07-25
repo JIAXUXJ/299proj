@@ -69,6 +69,18 @@ $('#login').submit(function() {
 
 });
 
+$("#logout").click(function() {
+
+    $.get('/user/logout', function(data) {
+        checkLogin();
+        alert("Logged out!");
+    }).fail(function() {
+        checkLogin();
+        alert("Oh no! You've encountered a nasty bug. Failed to log out.");
+    });
+
+});
+
 
 $('#register').submit(function() {
 
