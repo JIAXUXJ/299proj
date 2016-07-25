@@ -9,6 +9,27 @@ var passWordRe = null;
 var userID     = null;
 
 
+function checkLogin() {
+
+	//check if logged in, set account data if so
+	$.get('/user/settings', function(data) {
+
+		//logged in
+		$("#loginbutton-container").css("visibility", "hidden");
+		$("#logoutbutton-container").css("visibility", "visible");
+		$("#user-id").empty().html(data.UserName);
+
+	}).fail(function(data) {
+
+		//logged out
+		$("#loginbutton-container").css("visibility", "visible");
+		$("#logoutbutton-container").css("visibility", "hidden");
+
+	});
+
+}
+
+
 $('#login').submit(function() {
 
     // get all the inputs into an array.
@@ -38,9 +59,11 @@ $('#login').submit(function() {
 			"PwHash": hash(passWord),
 		}, function(data, textStatus) {
 			alert("Successfully logged in!");
+			checkLogin();
 		}
 	).fail(function(data) {
 	    alert("Incorrect user name or password.");
+		checkLogin();
     });
 	
 
@@ -102,6 +125,8 @@ function hash(string){
 function init() {
 
     console.log("Initalizing Page...");
+
+	checkLogin();
 
 }
 
