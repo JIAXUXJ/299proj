@@ -9,6 +9,27 @@ var passWordRe = null;
 var userID     = null;
 
 
+function checkLogin() {
+
+	//check if logged in, set account data if so
+	$.get('/user/settings', function(data) {
+
+		//logged in
+		$("#loginbutton-container").css("display", "none");
+		$("#logoutbutton-container").css("display", "inline");
+		$("#user-id").empty().html(data.UserName);
+
+	}).fail(function(data) {
+
+		//logged out
+		$("#loginbutton-container").css("display", "inline");
+		$("#logoutbutton-container").css("display", "none");
+
+	});
+
+}
+
+
 $('#login').submit(function() {
 
     // get all the inputs into an array.
@@ -32,18 +53,31 @@ $('#login').submit(function() {
 
 	// THIS NEEDS TO BE ADAPTED TO A LOGIN REQUEST
 	$.post(
-		"/user/new",
+		"/user/login",
 		{
 			"userName": userName,
 			"PwHash": hash(passWord),
 		}, function(data, textStatus) {
-			if (textStatus !== 'success') {
-				alert('Failed to login.');
-				console.log("Login failed. Status: " + textStatus);
-			}
+			alert("Successfully logged in!");
+			checkLogin();
 		}
-	); 
+	).fail(function(data) {
+	    alert("Incorrect user name or password.");
+		checkLogin();
+    });
 	
+
+});
+
+$("#logout").click(function() {
+
+    $.get('/user/logout', function(data) {
+        checkLogin();
+        alert("Logged out!");
+    }).fail(function() {
+        checkLogin();
+        alert("Oh no! You've encountered a nasty bug. Failed to log out.");
+    });
 
 });
 
@@ -80,12 +114,11 @@ $('#register').submit(function() {
 			"userName": userName,
 			"PwHash": hash(passWord),
 		}, function(data, textStatus) {
-			if (textStatus !== 'success') {
-				alert('Failed to login.');
-				console.log("Login failed. Status: " + textStatus);
-			}
+			alert("Registered successfully! Try logging in!");
 		}
-	); 
+	).fail(function() {
+	    alert("Sorry! Could not create your account at this time.");
+    });
 	
 
 });
@@ -104,6 +137,8 @@ function hash(string){
 function init() {
 
     console.log("Initalizing Page...");
+
+	checkLogin();
 
 }
 

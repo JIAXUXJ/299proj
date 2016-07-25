@@ -30,7 +30,11 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="team.html">Team</a></li>
 					<li><a href="rule.html">Rules</a></li>
-					<li><button type="button" class="btn btn-default navbar-btn" href="#" data-toggle="modal" data-target="#login-modal">Sign in</button></li>
+					<li id="loginbutton-container"><button type="button" class="btn btn-default navbar-btn" href="#" data-toggle="modal" data-target="#login-modal">Sign in</button></li>
+					<li id="logoutbutton-container" style="display:none;">
+                        <span class="navbar-text">Welcome, <span id="user-id"></span>!</span>
+						<button id="logout" type="button" class="btn btn-default navbar-btn">Logout</button>
+					</li>
 				</ul>
 			</div>
 		</div>
