@@ -9,9 +9,29 @@ var passWordRe = null;
 var userID     = null;
 
 
-$(".login-button").click(function() {
-	console.log("register");
-	 $.post(
+$('#login').submit(function() {
+
+    // get all the inputs into an array.
+    var $inputs = $('#login :input');
+    var values = {};
+    $inputs.each(function() {
+        values[this.name] = $(this).val();
+    });
+	console.log(values);
+	
+	userName =  values.userName;
+	passWord =  values.pw;
+	// Literally log the password in the console for maximum insecurity
+	console.log(userName);
+	console.log(passWord);
+	if(!passWord || !userName){
+		// Do a bad thing here if the user is too lazy to enter credentials
+		alert("Password or username field left blank");
+		return;
+	}
+
+	// THIS NEEDS TO BE ADAPTED TO A LOGIN REQUEST
+	$.post(
 		"/user/new",
 		{
 			"userName": userName,
@@ -23,6 +43,7 @@ $(".login-button").click(function() {
 			}
 		}
 	); 
+	
 
 });
 
@@ -40,22 +61,19 @@ $('#register').submit(function() {
 	userName =  values.userName;
 	passWord =  values.pw;
 	passWordRe= values.re_pw;
-	
+	// Literally log the password in the console for maximum insecurity
 	console.log(userName);
 	console.log(passWord);
 	if(!passWord || !userName){
-		// Do a bad thing here
+		// Do a bad thing here if the user is too lazy
 		alert("Password or username field left blank");
 		return;
-
 	}
 	if(passWord != passWordRe ){
-		// Do a bad thing here
+		// Do a bad thing here if the password fields don't match
 		alert("Passwords do not match, try again");
 		return;
-
 	}
-	console.log("now we post");
 	$.post(
 		"/user/new",
 		{
@@ -73,11 +91,11 @@ $('#register').submit(function() {
 });
 
 function hash(string){
-	//TODO: use better algo!!!! this is djb2
-	var hash = 5381;
-	for(var i = 0; i < string.length; i++){
-		var char = string.charCodeAt(i);
-		hash = ((hash<<5) + hash) + char;
+	//TODO: use better algo!!!! this is sdbm
+	var hash = 0;
+	var c;
+	for(c = 0; c < string.length ; c++){
+		hash = string.charCodeAt(c) + (hash<<6)+(hash<<16)-hash;
 	}
 	return hash;
 }
