@@ -15,15 +15,15 @@ function checkLogin() {
 	$.get('/user/settings', function(data) {
 
 		//logged in
-		$("#loginbutton-container").css("visibility", "hidden");
-		$("#logoutbutton-container").css("visibility", "visible");
+		$("#loginbutton-container").css("display", "none");
+		$("#logoutbutton-container").css("display", "inline");
 		$("#user-id").empty().html(data.UserName);
 
 	}).fail(function(data) {
 
 		//logged out
-		$("#loginbutton-container").css("visibility", "visible");
-		$("#logoutbutton-container").css("visibility", "hidden");
+		$("#loginbutton-container").css("display", "inline");
+		$("#logoutbutton-container").css("display", "none");
 
 	});
 
