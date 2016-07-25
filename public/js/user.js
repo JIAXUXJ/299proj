@@ -32,7 +32,7 @@ $('#login').submit(function() {
 
 	// THIS NEEDS TO BE ADAPTED TO A LOGIN REQUEST
 	$.post(
-		"/user/new",
+		"/user/login",
 		{
 			"userName": userName,
 			"PwHash": hash(passWord),
