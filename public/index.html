@@ -10,8 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- <link href="css/grey.css" rel ="stylesheet"> -->
 	<link href="css/modal.css" rel="stylesheet">
-	<link href="css/grey.css" rel ="stylesheet">
 </head>
 
 <body>
@@ -40,16 +40,16 @@
 		<div class="modal-dialog">
 			<div class="loginmodal-container">
 				<h1>Login or Register</h1><br>
-			  <form>
+			  <form id ="login">
 				<input type="text" name="userName" placeholder="Username">
 				<input type="password" name="pw" placeholder="Password">
-				<input type="submit" name="login" class="login btn btn-success btn-lg" value="Login">
+				<input type="submit" name="login" class="login-btn btn btn-success btn-lg" id="login-button" value="Login">
 			  </form>		
-			  <form>
+			  <form id ="register">
 				<input type="text" name="userName" placeholder="Username">
 				<input type="password" name="pw" placeholder="Password">
 				<input type="password" name="re_pw" placeholder="Re-Type Password">
-				<input type="submit" name="login" class="register btn btn-danger btn-lg" value="Register">
+				<input type="submit" name="login" class="register-btn btn btn-danger btn-lg" id="register-button" value="Register">
 			  </form>
 			</div>
 		</div>
@@ -84,5 +84,6 @@
 
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="js/user.js"></script>
 
 </html>
