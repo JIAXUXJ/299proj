@@ -37,7 +37,7 @@ $('#login').submit(function() {
 			"userName": userName,
 			"PwHash": hash(passWord),
 		}, function(data, textStatus) {
-			alert("Success! Try logging in.")
+			alert("Successfully logged in!");
 		}
 	).fail(function(data) {
 	    alert("Incorrect user name or password.");
