@@ -37,12 +37,11 @@ $('#login').submit(function() {
 			"userName": userName,
 			"PwHash": hash(passWord),
 		}, function(data, textStatus) {
-			if (textStatus !== 'success') {
-				alert('Failed to login.');
-				console.log("Login failed. Status: " + textStatus);
-			}
+			alert("Success! Try logging in.")
 		}
-	); 
+	).fail(function(data) {
+	    alert("Incorrect user name or password.");
+    });
 	
 
 });
@@ -80,12 +79,11 @@ $('#register').submit(function() {
 			"userName": userName,
 			"PwHash": hash(passWord),
 		}, function(data, textStatus) {
-			if (textStatus !== 'success') {
-				alert('Failed to login.');
-				console.log("Login failed. Status: " + textStatus);
-			}
+			alert("Registered successfully! Try logging in!");
 		}
-	); 
+	).fail(function() {
+	    alert("Sorry! Could not create your account at this time.");
+    });
 	
 
 });
