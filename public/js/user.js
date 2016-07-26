@@ -118,6 +118,7 @@ $('#register').submit(function() {
 		}
 	).fail(function() {
 	    alert("Sorry! Could not create your account at this time.");
+
     });
 	
 
