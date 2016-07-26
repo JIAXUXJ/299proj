@@ -9,7 +9,7 @@ var boardSize = null;
 var canvasSize = null;
 var mode = null;
 var turn = 'Black';
-var socket = io.connect('http://localhost:30052');
+var socket = io.connect();
 
 /**
  * Requests a new board state from the server's /data route.
