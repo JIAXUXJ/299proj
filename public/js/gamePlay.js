@@ -95,8 +95,9 @@ function drawBoard(state) {
     var canvas = $('#canvas-board');
     canvasSize = 600;
 	// Calculate the line offset - I actually don't know how this arithmetic works but it draws a nice board so ¯\_(ツ)_/¯
-	var offset = 10 * Math.floor(canvasSize / (boardSize+1));
-	console.log(offset);
+	var offset = Math.floor(canvasSize / (parseInt(boardSize)+1));
+	canvasSize = (parseInt(boardSize)+1) * offset  ;
+	console.log(offset, boardSize, canvasSize);
     var svg = $(makeSVG(canvasSize, canvasSize));
 
     /* Removed the background checkerboard colours option because if I can't have fun nobody can. */
