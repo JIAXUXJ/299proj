@@ -11,7 +11,7 @@
  *     - DEPLOY: For running the application on the UVic engineering network.
  */
 
-const CFG_NAME = 'TEST';
+const CFG_NAME = process.env.SENG299GO_CONFIG || 'TEST';
 
 var data = {};
 
