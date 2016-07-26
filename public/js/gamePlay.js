@@ -186,18 +186,17 @@ function gamePlay(){
                 "CoordY": CoorY,
 				"Pass": 'false',
                 "Player" : turn
-            },
-            function (data, textStatus){
-				      if (textStatus !== 'success') {
-				        alert("Failed to send move to server");
+            }, function (data, textStatus){
+				    if (textStatus !== 'success') {
+						alert("Failed to send move to server");
 				        console.log("Move failed. Status: " + textStatus);
-				      }
-				      else {
-								socket.emit('game-updated', {'gid': gameID});
-				      }
+				    }
+				    else {
+						socket.emit('game-updated', {'gid': gameID});
+				    }
             }
         );
-		getData(updateGame);
+
 
     });
 	// Get the nice finger-pointy thing because everyone loves those
@@ -216,6 +215,8 @@ function passToken() {
             "/game/" + gameID,
             {
                 "game": gameID,
+				"CoordX": 0,
+                "CoordY": 0,
                 "Pass": 'true',
                 "Player": turn
             }, function(data, textStatus) {
