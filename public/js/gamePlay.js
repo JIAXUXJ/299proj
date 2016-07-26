@@ -185,7 +185,7 @@ function gamePlay(){
                 "CoordX": CoorX,
                 "CoordY": CoorY,
 				"Pass": 'false',
-                "Player" : turn
+                "Player": turn
             }, function (data, textStatus){
 				    if (textStatus !== 'success') {
 						alert("Failed to send move to server");
@@ -196,21 +196,18 @@ function gamePlay(){
 				    }
             }
         );
-
-
     });
 	// Get the nice finger-pointy thing because everyone loves those
     $('#canvas-board').on('mouseover', function () {
         // location.href = "./img/black.ani";
         // $(this)[0].style.cursor = url('./img/black.ani');
         $(this)[0].style.cursor = 'pointer';
-    });
-
+    });	
 }
 
 function passToken() {
-    $(".pass-button").click(function() {
-
+	$('.pass-button').on('click', function() {
+        console.log("Making move: Pass");
         $.post(
             "/game/" + gameID,
             {
@@ -219,17 +216,16 @@ function passToken() {
                 "CoordY": 0,
                 "Pass": 'true',
                 "Player": turn
-            }, function(data, textStatus) {
+            }, function (data, textStatus) {
                 if (textStatus !== 'success') {
-                  alert('Failed to send move to server.');
-                  console.log("Move failed. Status: " + textStatus);
+					alert('Failed to send move to server.');
+					console.log("Move failed. Status: " + textStatus);
                 }
                 else {
                 	socket.emit('game-updated', {'gid': gameID});
                 }
             }
         );
-		//getData(updateGame);
     });
 }
 function init() {
