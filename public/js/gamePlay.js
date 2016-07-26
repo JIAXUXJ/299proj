@@ -51,6 +51,8 @@ function getData(cb) {
  */
 function updateGame(data) {
 
+    console.log(data);
+
     // update the board state
     drawBoard(data.Board);
 
@@ -63,6 +65,18 @@ function updateGame(data) {
     $("#p1-pass").css("visibility", turn == "Black" ? "visible" : "hidden");
     $("#p2-pass").css("visibility", turn == "White" ? "visible" : "hidden");
     //alert("It's " + data.Turn + "'s turn!");
+
+    if (data.State === "DONE") {
+
+        // end game
+        $("#p1-pass").css("visibility", "hidden");
+        $("#p2-pass").css("visibility", "hidden");
+
+        // show game over alert
+        $("#game-over-alert").css("display", "block");
+
+
+    }
 }
 
 /*
