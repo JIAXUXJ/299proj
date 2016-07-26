@@ -107,7 +107,7 @@ function drawBoard(state) {
 
 	// Descriptively name the canvas
     var canvas = $('#canvas-board');
-    canvasSize = 450;
+    canvasSize = canvas.width();
 	// Calculate the line offset - I actually don't know how this arithmetic works but it draws a nice board so ¯\_(ツ)_/¯
 	var offset = Math.floor(canvasSize / (parseInt(boardSize)+1));
 	canvasSize = (parseInt(boardSize)+1) * offset  ;
@@ -181,7 +181,7 @@ function gamePlay(){
 
     $('circle').on('click', function () {
         console.log("Board Size: ", boardSize);
-		var offset = 10 * Math.floor(canvasSize / (boardSize+1));
+        var offset = Math.floor(canvasSize / (parseInt(boardSize)+1));
         
 		// Calculate the integer location of this stone
 		var CoorX = ($(this)[0].attributes.cx.nodeValue - offset)/offset;
