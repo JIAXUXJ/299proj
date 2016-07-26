@@ -17,7 +17,7 @@ var data = {};
 
 //Server Config
 data.server = {};
-data.server.PORT = 'DEPLOY' ? 30052 : 3000;
+data.server.PORT = CFG_NAME === 'DEPLOY' ? 30052 : 3000;
 
 //DB Config
 data.db = {};
