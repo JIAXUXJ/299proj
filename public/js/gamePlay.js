@@ -151,53 +151,53 @@ function drawBoard(state) {
  * Adds a click event handler for the canvas.
  */
 function gamePlay(){
-    $('circle').on('click', function () {
-        console.log("Board Size: ", boardSize);
-        var size = boardSize;
-        var unitSize;
-        if(size <= 10){
-            unitSize = 64;//105.55555
-        }else if(size > 10 && size <= 15){
-            unitSize = 44;//73
-        }else {
-            unitSize = 30;//50 origin
-        }
-        var CoorX = ($(this)[0].attributes.cx.nodeValue - unitSize)/unitSize;
-        var CoorY = ($(this)[0].attributes.cy.nodeValue - unitSize)/unitSize;
-        CoorX = Math.round(CoorX);
-		CoorY = Math.round(CoorY);
-        console.log("Making move: (" + CoorX + ", " + CoorY + ")");
-        // TODO write sth here: to check if it is a valid move, if yes, user can place token here.
-        //TODO: I'm note faimiliar with server code, so I don't know how to send data to server here
-        //TODO: all things should be write below here, donot change any other JS code in this file.
+  $('circle').on('click', function () {
+    console.log("Board Size: ", boardSize);
+    var size = boardSize;
+    var unitSize;
+    if(size <= 10){
+        unitSize = 64;//105.55555
+    }else if(size > 10 && size <= 15){
+        unitSize = 44;//73
+    }else {
+        unitSize = 30;//50 origin
+    }
+    var CoorX = ($(this)[0].attributes.cx.nodeValue - unitSize)/unitSize;
+    var CoorY = ($(this)[0].attributes.cy.nodeValue - unitSize)/unitSize;
+    CoorX = Math.round(CoorX);
+CoorY = Math.round(CoorY);
+    console.log("Making move: (" + CoorX + ", " + CoorY + ")");
+    // TODO write sth here: to check if it is a valid move, if yes, user can place token here.
+    //TODO: I'm note faimiliar with server code, so I don't know how to send data to server here
+    //TODO: all things should be write below here, donot change any other JS code in this file.
 
-        $.post(
-            "/game/" + gameID,
-            {
-                "Game": gameID,
-                "CoordX": CoorX,
-                "CoordY": CoorY,
+    $.post(
+      "/game/" + gameID,
+      {
+        "Game": gameID,
+        "CoordX": CoorX,
+        "CoordY": CoorY,
 				"Pass": 'false',
-                "Player" : turn
-            },function (data, textStatus){
-                if (textStatus !== 'success') {
-                    alert("Failed to send move to server");
-                    console.log("Move failed. Status: " + textStatus);
-                }
-                else {
+        "Player" : turn
+      },function (data, textStatus){
+          if (textStatus !== 'success') {
+            alert("Failed to send move to server");
+            console.log("Move failed. Status: " + textStatus);
+          }
+          else {
+						socket.emit('game-updated', {'gid': gameID});
+          }
+      }
+    );
+	//getData(updateGame);
 
-                }
-            }
-        );
-		getData(updateGame);
+  });
 
-    });
-
-    $('#canvas-board').on('mouseover', function () {
-        // location.href = "./img/black.ani";
-        // $(this)[0].style.cursor = url('./img/black.ani');
-        $(this)[0].style.cursor = 'pointer';
-    });
+  $('#canvas-board').on('mouseover', function () {
+    // location.href = "./img/black.ani";
+    // $(this)[0].style.cursor = url('./img/black.ani');
+    $(this)[0].style.cursor = 'pointer';
+  });
 
 }
 function passToken() {
@@ -211,12 +211,15 @@ function passToken() {
                 "Turn": turn
             }, function(data, textStatus) {
                 if (textStatus !== 'success') {
-                    alert('Failed to send move to server.');
-                    console.log("Move failed. Status: " + textStatus);
+                  alert('Failed to send move to server.');
+                  console.log("Move failed. Status: " + textStatus);
+                }
+                else {
+                	socket.emit('game-updated', {'gid': gameID});
                 }
             }
         );
-		getData(updateGame);
+		//getData(updateGame);
     });
 }
 function init() {
@@ -244,4 +247,9 @@ init();
 socket.on('observe-prompt', function(data){
 	console.log('emitting observe event for gid '+data);
 	socket.emit('observe', {'gid': data});
+});
+
+socket.on('game-new-data', function(data){
+	console.log('game updated by push event: '+data);
+	updateGame(data);
 });

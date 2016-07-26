@@ -12,6 +12,7 @@ var logger         = require('./lib/util/logger.js');
 var matchmaking    = require('./lib/matchmaking/MatchmakingRouter.js');
 var user           = require('./lib/other/userRouter.js');
 var game           = require('./lib/game/gameRouter.js');
+var stad           = require('./lib/game/Stad2.js');
 var review         = require('./lib/other/reviewRouter.js');
 
 var app            = express();
@@ -32,8 +33,20 @@ io.on('connection', function(socket){
 				logger.debug(err);
 			} else {
 				console.log(socket.rooms);
+				stad.getGame(data.gid, function(got){
+					if(got){
+						socket.emit('game-new-data', got);
+					}
+				});
 			}
 		});	
+	});
+	socket.on('game-updated', function(data){
+		stad.getGame(data.gid, function(got){
+			if(got){
+				io.to(data.gid).emit('game-new-data', got);
+			}
+		});
 	});
 });
 
