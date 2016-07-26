@@ -6,9 +6,9 @@
 var params = null;
 var gameID = null;
 var boardSize = null;
+var canvasSize = null;
 var mode = null;
 var turn = 'Black';
-
 /**
  * Requests a new board state from the server's /data route.
  * @param cb {function} callback to call when the request comes back from the server.
@@ -87,17 +87,16 @@ function parseUrl() {
  * @param state {int[][]} 2-D array representing the state of the board
  */
 function drawBoard(state) {
-    //bg is a string passed from user setting page, it is a string look like:
-    // token-color; bg-color; size
 
+	// Descriptively name the canvas
     var canvas = $('#canvas-board');
-    var squareSize = 500;
-    var offset = Math.floor((squareSize % boardSize) / 2);
-    var unitSize = Math.floor(squareSize / boardSize);
+    canvasSize = 600;
+	// Calculate the line offset - I actually don't know how this arithmetic works but it draws a nice board so ¯\_(ツ)_/¯
+	var offset = 10 * Math.floor(canvasSize / (boardSize+1));
+	console.log(offset);
+    var svg = $(makeSVG(canvasSize, canvasSize));
 
-    var svg = $(makeSVG(squareSize, squareSize));
-
-    /* BOARD COLORS */
+    /* Removed the background checkerboard colours option because if I can't have fun nobody can. */
     /*
     var bgcolor1, bgcolor2;
     if(bg.length === 4){
@@ -108,40 +107,52 @@ function drawBoard(state) {
         bgcolor1 = bgcolor2 = bg[2];
     }
     */
-
+	
+	// We could modify this to do colour, or we could go Web2.0 Monotone. 
     //draw every unit rectangle
-    var isOdd = false;
+    /* var isOdd = false;
     for(i = offset; i < squareSize - offset*2; i+=unitSize){
         for(j = offset; j < squareSize - offset*2; j+=unitSize ){
             //if-else comment: make the color different in the different unit.
                 svg.append($(makeRectangle(i, j, unitSize, unitSize, 'slategrey')));
 
         }
-    }
+    } */
+	// Solid Colour Background for those of us who like to pretend we know what web design is.
+	svg.append($(makeRectangle(0, 0, canvasSize, canvasSize, 'slategrey')));
+	
+	
+	// Draw the lines on the board
+	// update 3.6: lines have been trained to maintain perfect straightness at all times, including when under duress.
+	var k = offset;
+    for(var i = 0; i < boardSize; i++){
+        svg.append(makeLine(k, 0, k, canvasSize));
+		k += offset;
+	}
+	k = offset;
+    for(var i = 0; i < boardSize; i++){
+        svg.append(makeLine(0, k, canvasSize, k));
+		k += offset;
+	}
 
-    for(var k = unitSize + offset; k < squareSize; k+=unitSize){
-        svg.append(makeLine(k, 0, k, squareSize));
-    }
-
-    for(var a = unitSize + offset; a < squareSize; a+=unitSize){
-        svg.append(makeLine(0, a, squareSize, a));
-    }
-
-    // TODO : only thing need to be change when data refreshed from server
+     // TODO : only thing need to be change when data refreshed from server
     for(var i = 0; i < boardSize; i++){
         for (var j = 0; j < boardSize; j ++){
             // svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));
             if(state[i][j] == 'Black'){
-                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(1, 1, 1, 1)'));//black
+                svg.append(makeCircle(i*offset+offset, j*offset+offset, offset/2.5, 'rgba(1, 1, 1, 1)'));//black
             }else if(state[i][j] == 'White'){
-                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 1)'));//white
+                svg.append(makeCircle(i*offset+offset, j*offset+offset, offset/2.5, 'rgba(255, 255, 255, 1)'));//white
             }else{
-                svg.append(makeCircle(i*unitSize + unitSize, j*unitSize + unitSize, unitSize/2.5, 'rgba(255, 255, 255, 0)'));// invisible ink
+                svg.append(makeCircle(i*offset+offset, j*offset+offset, offset/2.5, 'rgba(255, 255, 255, 0)'));// invisible ink
             }
         }
-    }
-	// Big fan of this next line - hot take to do it all at once - Tharnadek
+    } 
+	
+	
+	// Big fan of this next line - hot take to do it all at once
     canvas.empty().append(svg);
+	// once more return to our master and wait for orders
     gamePlay();
 }
 
@@ -151,24 +162,18 @@ function drawBoard(state) {
 function gamePlay(){
     $('circle').on('click', function () {
         console.log("Board Size: ", boardSize);
-        var size = boardSize;
-        var unitSize;
-        if(size <= 10){
-            unitSize = 64;//105.55555
-        }else if(size > 10 && size <= 15){
-            unitSize = 44;//73
-        }else {
-            unitSize = 30;//50 origin
-        }
-        var CoorX = ($(this)[0].attributes.cx.nodeValue - unitSize)/unitSize;
-        var CoorY = ($(this)[0].attributes.cy.nodeValue - unitSize)/unitSize;
-        CoorX = Math.round(CoorX);
+		var offset = 10 * Math.floor(canvasSize / (boardSize+1));
+        
+		// Calculate the integer location of this stone
+		var CoorX = ($(this)[0].attributes.cx.nodeValue - offset)/offset;
+        var CoorY = ($(this)[0].attributes.cy.nodeValue - offset)/offset;
+        // round even though we shouldn't have to (everyone loves round numbers)
+		// The server also taps out if you send a floating point number
+		CoorX = Math.round(CoorX);
 		CoorY = Math.round(CoorY);
         console.log("Making move: (" + CoorX + ", " + CoorY + ")");
-        // TODO write sth here: to check if it is a valid move, if yes, user can place token here.
-        //TODO: I'm note faimiliar with server code, so I don't know how to send data to server here
-        //TODO: all things should be write below here, donot change any other JS code in this file.
-
+		// Post the move data to the server
+		// If you bring a box of timbits they'll serve you quicker
         $.post(
             "/game/" + gameID,
             {
@@ -187,7 +192,7 @@ function gamePlay(){
 		getData(updateGame);
 
     });
-
+	// Get the nice finger-pointy thing because everyone loves those
     $('#canvas-board').on('mouseover', function () {
         // location.href = "./img/black.ani";
         // $(this)[0].style.cursor = url('./img/black.ani');
