@@ -9,6 +9,8 @@ var boardSize = null;
 var canvasSize = null;
 var mode = null;
 var turn = 'Black';
+var socket = io.connect('http://localhost:30052');
+
 /**
  * Requests a new board state from the server's /data route.
  * @param cb {function} callback to call when the request comes back from the server.
@@ -22,7 +24,8 @@ function getData(cb) {
             url: "/game/"+gameID,
             success: function(data){
                 //$("#result").text(JSON.stringify(data));
-                console.log(data);
+               	console.log('emitting observe event for gid '+gameID);
+								socket.emit('observe', {'gid': gameID});
                 cb(data);
             },
             dataType: "json"});
@@ -59,7 +62,7 @@ function updateGame(data) {
     turn = data.Turn;
     $("#p1-pass").css("visibility", turn == "Black" ? "visible" : "hidden");
     $("#p2-pass").css("visibility", turn == "White" ? "visible" : "hidden");
-    alert("It's " + data.Turn + "'s turn!");
+    //alert("It's " + data.Turn + "'s turn!");
 }
 
 /*
@@ -160,6 +163,7 @@ function drawBoard(state) {
  * Adds a click event handler for the canvas.
  */
 function gamePlay(){
+
     $('circle').on('click', function () {
         console.log("Board Size: ", boardSize);
 		var offset = 10 * Math.floor(canvasSize / (boardSize+1));
@@ -180,13 +184,17 @@ function gamePlay(){
                 "Game": gameID,
                 "CoordX": CoorX,
                 "CoordY": CoorY,
-				"Pass": 'false',
+								"Pass": 'false',
                 "Player" : turn
-            },function (data, textStatus){
-                if (textStatus !== 'success') {
-                    alert("Failed to send move to server");
-                    console.log("Move failed. Status: " + textStatus);
-                }
+            },
+            function (data, textStatus){
+				      if (textStatus !== 'success') {
+				        alert("Failed to send move to server");
+				        console.log("Move failed. Status: " + textStatus);
+				      }
+				      else {
+								socket.emit('game-updated', {'gid': gameID});
+				      }
             }
         );
 		getData(updateGame);
@@ -200,6 +208,7 @@ function gamePlay(){
     });
 
 }
+
 function passToken() {
     $(".pass-button").click(function() {
 
@@ -211,12 +220,15 @@ function passToken() {
                 "Turn": turn
             }, function(data, textStatus) {
                 if (textStatus !== 'success') {
-                    alert('Failed to send move to server.');
-                    console.log("Move failed. Status: " + textStatus);
+                  alert('Failed to send move to server.');
+                  console.log("Move failed. Status: " + textStatus);
+                }
+                else {
+                	socket.emit('game-updated', {'gid': gameID});
                 }
             }
         );
-		getData(updateGame);
+		//getData(updateGame);
     });
 }
 function init() {
@@ -237,7 +249,16 @@ function init() {
     getData(updateGame);
     //gamePlay func can return the position of circle.
 
-
 }
 
 init();
+
+socket.on('observe-prompt', function(data){
+	console.log('emitting observe event for gid '+data);
+	socket.emit('observe', {'gid': data});
+});
+
+socket.on('game-new-data', function(data){
+	console.log('game updated by push event: '+data);
+	updateGame(data);
+});

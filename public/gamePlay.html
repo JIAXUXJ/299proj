@@ -97,9 +97,15 @@
 </body>
 <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 
 <script type="text/javascript" src="js/svgFactory.js"></script>
 <script type="text/javascript" src="js/gamePlay.js"></script>
 <script type="text/javascript" src="js/user.js"></script>
+
+<script>
+
+	socket.on('status', function(data){console.log(data);});
+</script>
 
 </html>

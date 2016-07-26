@@ -3,28 +3,52 @@
 var express        = require('express');
 var bodyparser     = require('body-parser');
 var http           = require('http');
+var iolib          = require('socket.io');
 
 var sessionManager = require('./lib/session/SessionManager.js');
-var auth           = require('./lib/auth/auth.js');
-var socketIO       = require('./lib/util/io.js');
 var auth           = require('./lib/auth/auth.js');
 var serverConfig   = require('./config.js').server;
 var logger         = require('./lib/util/logger.js');
 var matchmaking    = require('./lib/matchmaking/MatchmakingRouter.js');
 var user           = require('./lib/other/userRouter.js');
 var game           = require('./lib/game/gameRouter.js');
+var stad           = require('./lib/game/Stad2.js');
 var review         = require('./lib/other/reviewRouter.js');
 
-var app = express();
-var server = http.Server(app);
+var app            = express();
+var server         = http.Server(app);
+var io          	 = iolib(server);
 
 _staticdir = 'public';
 
 // Security measure
 app.disable('x-powered-by');
 
-//initialize Socket.io
-socketIO.init(server);
+//initialize Socket.io - cannot put this in a separate file (who knows why).
+io.on('connection', function(socket){
+	socket.on('observe', function(data){
+		logger.debug('Spectator registering to game ' + data.gid);
+		socket.join(data.gid, function(err){
+			if(err){
+				logger.debug(err);
+			} else {
+				console.log(socket.rooms);
+				stad.getGame(data.gid, function(got){
+					if(got){
+						socket.emit('game-new-data', got);
+					}
+				});
+			}
+		});	
+	});
+	socket.on('game-updated', function(data){
+		stad.getGame(data.gid, function(got){
+			if(got){
+				io.to(data.gid).emit('game-new-data', got);
+			}
+		});
+	});
+});
 
 // Package middleware
 app.use(bodyparser.urlencoded({extended: false }));

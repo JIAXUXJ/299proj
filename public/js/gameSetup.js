@@ -1,6 +1,9 @@
 //created by Jia at 7-20, get the user settings input
 // var serverInterface = new ServerInterface("localhost", 3000);
  
+//var socket = io.connect('http://localhost:30052'); 
+//console.log('IO: socket.id: '+socket.io);
+ 
  /*
   * Add event handlers for buttons.
   */
@@ -9,7 +12,7 @@
      var title = $(document).attr("title");	
 	
      $('#play-button').on('click', function () {
-		console.log("play button");
+		//console.log("play button");
          //token: the color of user selected for their token.
 		
 		//gamemodes: 0 = Ai, 1 = Online, 2 = Hotseat
@@ -30,7 +33,7 @@
 			size = 19;
 		}
 
-		console.log(size, gameMode);
+		//console.log(size, gameMode);
         var bg = "size=" + size+ "&" + "mode=" + gameMode;
 
 
@@ -41,9 +44,9 @@
          },
          function(data, textStatus) {
              if (data) {
-                 console.log(data);
+                 console.log('gameSetup/init: '+data);
                  window.location.href = '/gamePlay.html?gameID=' + data + "&" + bg;
-                 getData();
+                 //getData();
              }
              else if (textStatus !== 'success') {
                  alert("Failed to access server.");
