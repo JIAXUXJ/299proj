@@ -107,7 +107,7 @@ function drawBoard(state) {
 
 	// Descriptively name the canvas
     var canvas = $('#canvas-board');
-    canvasSize = 600;
+    canvasSize = 450;
 	// Calculate the line offset - I actually don't know how this arithmetic works but it draws a nice board so ¯\_(ツ)_/¯
 	var offset = Math.floor(canvasSize / (parseInt(boardSize)+1));
 	canvasSize = (parseInt(boardSize)+1) * offset  ;
