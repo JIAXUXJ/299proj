@@ -8,11 +8,11 @@
   },
   "scripts": {
     "test": "node scripts/runTests.js",
-    "test-server": "export N_PREFIX=$PWD/n_working && ./node_modules/n/bin/n use latest server.js",
+    "test-server": "export SENG299GO_CONFIG=DEPLOY && export N_PREFIX=$PWD/n_working && ./node_modules/n/bin/n use latest server.js",
     "init-env-server": "npm install && npm run-script get-node",
     "get-node": "mkdir n_working && export N_PREFIX=$PWD/n_working && ./node_modules/n/bin/n latest",
-    "start": "export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever start -c \"./node_modules/n/bin/n use latest\" server.js",
-    "stop": "export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever stopall",
+    "start": "export SENG299GO_CONFIG=DEPLOY && export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever start -c \"./node_modules/n/bin/n use latest\" server.js",
+    "stop": "export SENG299GO_CONFIG=DEPLOY && export N_PREFIX=$PWD/n_working && ./node_modules/forever/bin/forever stopall",
     "restart": "npm run-script stop && npm run-script start"
   },
   "repository": {
