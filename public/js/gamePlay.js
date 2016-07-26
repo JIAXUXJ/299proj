@@ -212,7 +212,7 @@ function passToken() {
         $.post(
             "/game/" + gameID,
             {
-                "game": gameID,
+                "Game": gameID,
 				"CoordX": 0,
                 "CoordY": 0,
                 "Pass": 'true',
