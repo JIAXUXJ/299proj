@@ -23,7 +23,7 @@ _staticdir = 'public';
 // Security measure
 app.disable('x-powered-by');
 
-//initialize Socket.io - cannot put this in a separate file!
+//initialize Socket.io - cannot put this in a separate file (who knows why).
 io.on('connection', function(socket){
 	socket.on('observe', function(data){
 		logger.debug('Spectator registering to game ' + data.gid);
