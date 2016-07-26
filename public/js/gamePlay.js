@@ -184,7 +184,7 @@ function gamePlay(){
                 "Game": gameID,
                 "CoordX": CoorX,
                 "CoordY": CoorY,
-								"Pass": 'false',
+				"Pass": 'false',
                 "Player" : turn
             },
             function (data, textStatus){
@@ -217,7 +217,7 @@ function passToken() {
             {
                 "game": gameID,
                 "Pass": 'true',
-                "Turn": turn
+                "Player": turn
             }, function(data, textStatus) {
                 if (textStatus !== 'success') {
                   alert('Failed to send move to server.');
